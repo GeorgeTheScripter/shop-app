@@ -1,0 +1,35 @@
+<template>
+  <div
+    class="w-full rounded-xl overflow-hidden shadow-xl cursor-pointer relative"
+  >
+    <div
+      :style="`background-image: url('${product.images[0]}')`"
+      class="h-[200px] w-full bg-center bg-cover bg-no-repeat"
+    ></div>
+    <!-- <img :src="product.images[0]" alt="" /> -->
+
+    <Like class="absolute top-2 right-2" :isLike="false" />
+
+    <div class="p-4 flex flex-col gap-4">
+      <div class="flex flex-col gap-3">
+        <p class="text-xl font-bold text-slate-600">{{ product.price }}$</p>
+        <div class="flex flex-col gap-1">
+          <p class="text-lg font-medium text-slate-600">{{ product.title }}</p>
+          <p class="text-xs truncate text-slate-400">
+            {{ product.description }}
+          </p>
+        </div>
+      </div>
+
+      <Button class="w-full">Add to cart</Button>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { Product } from "@/types";
+
+const props = defineProps<{
+  product: Product;
+}>();
+</script>
