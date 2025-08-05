@@ -15,28 +15,11 @@
       </div>
 
       <div class="flex flex-col gap-2 overflow-y-scroll h-full pb-2">
-        <div
+        <FavoriteItem
           v-for="favorite in favoriteStore.favorites"
           :key="favorite.id"
-          class="p-2 rounded-xl flex justify-between w-lg items-center bg-white border-slate-600 border-2"
-        >
-          <div class="flex gap-3 items-center">
-            <div
-              :style="`background-image: url('${favorite.image}')`"
-              class="h-[40px] w-[40px] bg-center bg-contain bg-no-repeat"
-            ></div>
-            <div class="max-w-[300px] flex-1 overflow-hidden">
-              <p class="text-lg">{{ favorite.price }}$</p>
-              <p
-                class="text-xl whitespace-nowrap text-ellipsis overflow-hidden truncate"
-              >
-                {{ favorite.title }}
-              </p>
-            </div>
-          </div>
-
-          <Button @click="removeFromFavorite(favorite)">Delete</Button>
-        </div>
+          :favorite="favorite"
+        />
       </div>
     </div>
   </div>
@@ -44,11 +27,7 @@
 
 <script setup lang="ts">
 import { useFavoriteStore } from "@/store/favorite.store";
-import { Product } from "@/types";
+import FavoriteItem from "./FavoriteItem.vue";
 
 const favoriteStore = useFavoriteStore();
-
-const removeFromFavorite = (product: Product) => {
-  favoriteStore.removeFromFavorite(product);
-};
 </script>
