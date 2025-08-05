@@ -1,34 +1,21 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useProductStore } from "./store/productStore";
 import Header from "@/components/Header.vue";
-import ProductCard from "./components/ProductCard.vue";
-
-const productsStore = useProductStore();
-onMounted(async () => {
-  productsStore.fetchProducts();
-});
+import ProductsList from "./components/ProductsList.vue";
+import Footer from "./components/Footer.vue";
 </script>
 
 <template>
-  <div class="flex flex-col gap-12">
+  <div class="flex flex-col">
     <Header />
 
-    <!-- Создать лоадер -->
-    <div v-if="productsStore.isLoading">Loading...</div>
-
-    <div
-      v-else-if="productsStore.products.length > 0"
-      class="w-[1280px] m-auto grid grid-cols-4 gap-5"
-    >
-      <ProductCard
-        v-for="product in productsStore.products"
-        :product="product"
-        :key="product.id"
-      />
+    <div class="w-[1280px] mx-auto mt-12 mb-6">
+      <h3 class="text-4xl text-slate-600">Our products</h3>
     </div>
 
-    <!-- Создать оповещение -->
-    <div v-else class="text-center py-8">No products found</div>
+    <ProductsList />
+
+    <div class="mt-24">
+      <Footer />
+    </div>
   </div>
 </template>

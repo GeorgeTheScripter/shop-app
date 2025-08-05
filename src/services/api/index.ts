@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { ApiClient, Product } from "@/types";
 
-const API_BASE = "https://api.escuelajs.co/api/v1";
+const API_BASE = "https://fakestoreapi.com";
 
 const client = axios.create({
   baseURL: API_BASE,
@@ -11,7 +11,6 @@ const client = axios.create({
 export const apiClient: ApiClient = {
   getProducts: async (): Promise<Product[]> => {
     const response = await client.get("/products");
-    console.log(response);
     return response.data;
   },
 
