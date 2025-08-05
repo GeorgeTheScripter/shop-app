@@ -9,8 +9,6 @@ export const useProductStore = defineStore("product", () => {
 
   // ===== State =====
   const products = ref<Product[]>([]);
-  const likedProducts = ref<Product[]>([]);
-  const cartProducts = ref<Product[]>([]);
   const isLoading = ref<boolean>(false);
   const error = ref<string>("");
 
@@ -35,6 +33,9 @@ export const useProductStore = defineStore("product", () => {
   const loadFromAPI = async () => {
     try {
       products.value = await ProductService.getAll();
+      products.value = products.value.map((product: Product) => {
+        return { ...product, isFavorite: false };
+      });
       saveToLocalStorage(LOCAL_STORAGE_KEY, products.value);
     } catch (err) {
       error.value = String(err);
@@ -55,7 +56,5 @@ export const useProductStore = defineStore("product", () => {
     isLoading,
     error,
     fetchProducts,
-    likedProducts,
-    cartProducts,
   };
 });

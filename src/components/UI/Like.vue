@@ -22,10 +22,10 @@ defineOptions({
 });
 
 const props = defineProps<{
-  isLike: boolean;
+  isFavorite: boolean;
 }>();
 
 const heartColor = computed(() => {
-  return props.isLike ? "fill-red-500" : "fill-gray-500";
+  return props.isFavorite ? "fill-red-500" : "fill-gray-500";
 });
 </script>

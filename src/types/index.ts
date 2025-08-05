@@ -4,15 +4,9 @@ export type Product = {
   slug: string;
   price: number;
   description: string;
-  category: Category;
+  category: string;
   image: string;
-};
-
-export type Category = {
-  id: number;
-  name: string;
-  slug: string;
-  image: string;
+  isFavorite?: boolean;
 };
 
 export interface ApiClient {

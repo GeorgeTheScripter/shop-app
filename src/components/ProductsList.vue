@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProductStore } from "@/store/productStore";
+import { useProductStore } from "@/store/products.store";
 import { onMounted } from "vue";
 import ProductCard from "./ProductCard.vue";
 
