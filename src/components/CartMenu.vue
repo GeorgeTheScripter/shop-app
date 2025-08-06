@@ -25,7 +25,7 @@
       <div class="w-full">
         <div class="text-xl flex justify-between">
           <p>Итого:</p>
-          <p>{{ cartStore.getTotalPrice }}$</p>
+          <p>{{ cartStore.getTotalPrice.toFixed(2) }}$</p>
         </div>
 
         <Button class="w-full">Оформить</Button>

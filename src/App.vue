@@ -12,8 +12,13 @@
       <Footer />
     </div>
 
-    <FavoriteMenu v-if="isFavoriteModalOpen" />
-    <CartMenu v-if="isCartModalOpen" />
+    <FadeTransaction>
+      <FavoriteMenu v-if="isFavoriteModalOpen" />
+    </FadeTransaction>
+
+    <FadeTransaction>
+      <CartMenu v-if="isCartModalOpen" />
+    </FadeTransaction>
   </div>
 </template>
 
@@ -26,6 +31,7 @@ import { useFavoriteStore } from "@/store/favorite.store";
 import { computed } from "vue";
 import CartMenu from "./components/CartMenu.vue";
 import { useCartStore } from "./store/cart.store";
+import FadeTransaction from "./components/FadeTransaction.vue";
 
 const favoriteStore = useFavoriteStore();
 const cartStore = useCartStore();

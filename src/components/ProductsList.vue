@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { useProductStore } from "@/store/products.store";
-import { onMounted } from "vue";
+import { onMounted, Transition } from "vue";
 import ProductCard from "./ProductCard.vue";
 
 const productsStore = useProductStore();
