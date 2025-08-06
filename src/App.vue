@@ -12,7 +12,8 @@
       <Footer />
     </div>
 
-    <FavoriteMenu v-if="isModalOpen" />
+    <FavoriteMenu v-if="isFavoriteModalOpen" />
+    <CartMenu v-if="isCartModalOpen" />
   </div>
 </template>
 
@@ -23,10 +24,17 @@ import Footer from "@/components/Footer.vue";
 import FavoriteMenu from "@/components/FavoriteMenu.vue";
 import { useFavoriteStore } from "@/store/favorite.store";
 import { computed } from "vue";
+import CartMenu from "./components/CartMenu.vue";
+import { useCartStore } from "./store/cart.store";
 
 const favoriteStore = useFavoriteStore();
+const cartStore = useCartStore();
 
-const isModalOpen = computed(
+const isFavoriteModalOpen = computed(
   () => favoriteStore.isModalOpen && favoriteStore.favorites.length > 0
+);
+
+const isCartModalOpen = computed(
+  () => cartStore.isModalOpen && cartStore.cart.length > 0
 );
 </script>

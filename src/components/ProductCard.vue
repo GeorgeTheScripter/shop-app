@@ -25,12 +25,13 @@
         </div>
       </div>
 
-      <Button class="w-full">Add to cart</Button>
+      <Button class="w-full" @click="addToCart(product)">Add to cart</Button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useCartStore } from "@/store/cart.store";
 import { useFavoriteStore } from "@/store/favorite.store";
 import { Product } from "@/types";
 
@@ -39,6 +40,7 @@ const props = defineProps<{
 }>();
 
 const favoritesStore = useFavoriteStore();
+const cartStore = useCartStore();
 
 const toggleFavorite = (product: Product) => {
   if (product.isFavorite) {
@@ -46,5 +48,9 @@ const toggleFavorite = (product: Product) => {
   } else {
     favoritesStore.addToFavorite(product);
   }
+};
+
+const addToCart = (product: Product) => {
+  cartStore.addToCart(product);
 };
 </script>

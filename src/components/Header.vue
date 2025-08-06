@@ -4,25 +4,19 @@
       <div class="text-xl font-medium text-slate-300">Shop</div>
 
       <div class="flex gap-2">
-        <Button @click="toggleFavoriteModal" :isFavorite="true"
+        <Button @click="favoriteStore.toggleFavoriteModal" :isFavorite="true"
           >Favorites</Button
         >
-        <Button>Cart</Button>
+        <Button @click="cartStore.toggleCartModal" :isCart="true">Cart</Button>
       </div>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
+import { useCartStore } from "@/store/cart.store";
 import { useFavoriteStore } from "@/store/favorite.store";
 
 const favoriteStore = useFavoriteStore();
-
-const toggleFavoriteModal = () => {
-  if (favoriteStore.isModalOpen) {
-    favoriteStore.closeModal();
-  } else {
-    favoriteStore.openModal();
-  }
-};
+const cartStore = useCartStore();
 </script>

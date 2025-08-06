@@ -1,4 +1,4 @@
-export type Product = {
+export interface Product {
   id: number;
   title: string;
   slug: string;
@@ -7,7 +7,12 @@ export type Product = {
   category: string;
   image: string;
   isFavorite?: boolean;
-};
+}
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}
 
 export interface ApiClient {
   getProducts: () => Promise<Product[]>;

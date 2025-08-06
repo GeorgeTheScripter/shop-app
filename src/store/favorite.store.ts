@@ -42,6 +42,14 @@ export const useFavoriteStore = defineStore("favorite", () => {
     isModalOpen.value = false;
   };
 
+  const toggleFavoriteModal = () => {
+    if (isModalOpen.value) {
+      closeModal();
+    } else {
+      openModal();
+    }
+  };
+
   return {
     favorites,
     addToFavorite,
@@ -49,5 +57,6 @@ export const useFavoriteStore = defineStore("favorite", () => {
     isModalOpen,
     openModal,
     closeModal,
+    toggleFavoriteModal,
   };
 });

@@ -1,6 +1,5 @@
 <template>
   <div
-    :key="favorite.id"
     class="p-2 rounded-xl flex justify-between w-lg items-center bg-white border-slate-600 border-2"
   >
     <div class="flex gap-3 items-center">
