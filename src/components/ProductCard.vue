@@ -1,17 +1,17 @@
 <template>
   <div
     class="w-full h-full rounded-xl overflow-hidden cursor-pointer relative border-slate-600 border-2"
+    @click="openProductPage(product.id)"
   >
     <div
       :style="`background-image: url('${product.image}')`"
       class="h-[200px] w-full bg-center bg-size-[120px] bg-no-repeat"
     ></div>
-    <!-- <img :src="product.images[0]" alt="" /> -->
 
     <Like
       class="absolute top-2 right-2"
       :isFavorite="product.isFavorite"
-      @click="toggleFavorite(product)"
+      @click="favoritesStore.toggleFavorite(product)"
     />
 
     <div class="p-4 flex flex-col gap-4 h-auto">
@@ -25,7 +25,9 @@
         </div>
       </div>
 
-      <Button class="w-full" @click="addToCart(product)">Add to cart</Button>
+      <Button class="w-full" @click="cartStore.addToCart(product)"
+        >Добавить в корзину</Button
+      >
     </div>
   </div>
 </template>
@@ -34,23 +36,18 @@
 import { useCartStore } from "@/store/cart.store";
 import { useFavoriteStore } from "@/store/favorite.store";
 import { Product } from "@/types";
+import { useRouter } from "vue-router";
 
-const props = defineProps<{
+defineProps<{
   product: Product;
 }>();
 
 const favoritesStore = useFavoriteStore();
 const cartStore = useCartStore();
 
-const toggleFavorite = (product: Product) => {
-  if (product.isFavorite) {
-    favoritesStore.removeFromFavorite(product);
-  } else {
-    favoritesStore.addToFavorite(product);
-  }
-};
+const router = useRouter();
 
-const addToCart = (product: Product) => {
-  cartStore.addToCart(product);
+const openProductPage = (id: number) => {
+  router.push(`/product/${id}`);
 };
 </script>

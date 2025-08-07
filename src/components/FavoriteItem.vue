@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <Button @click="removeFromFavorite(favorite)">Delete</Button>
+    <Button @click="favoriteStore.removeFromFavorite(favorite)">Delete</Button>
   </div>
 </template>
 
@@ -30,8 +30,4 @@ defineProps<{
 }>();
 
 const favoriteStore = useFavoriteStore();
-
-const removeFromFavorite = (product: Product) => {
-  favoriteStore.removeFromFavorite(product);
-};
 </script>

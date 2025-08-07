@@ -7,12 +7,12 @@ import { ref } from "vue";
 export const useProductStore = defineStore("product", () => {
   const LOCAL_STORAGE_KEY = "products";
 
-  // ===== State =====
+  // state
   const products = ref<Product[]>([]);
   const isLoading = ref<boolean>(false);
   const error = ref<string>("");
 
-  // ===== Action =====
+  // actions
   const fetchProducts = async () => {
     if (isLoading.value) return;
 
@@ -29,7 +29,7 @@ export const useProductStore = defineStore("product", () => {
     isLoading.value = false;
   };
 
-  // ===== Private methods =====
+  // pricvete methods
   const loadFromAPI = async () => {
     try {
       products.value = await ProductService.getAll();
@@ -51,10 +51,19 @@ export const useProductStore = defineStore("product", () => {
     }
   };
 
+  // getters
+  const getCurrentProduct = (id: number): Product | undefined => {
+    return products.value.find((product: Product) => product.id === id);
+  };
+
   return {
+    // state
     products,
     isLoading,
     error,
+    // actions
     fetchProducts,
+    // getters
+    getCurrentProduct,
   };
 });

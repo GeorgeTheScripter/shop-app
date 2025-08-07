@@ -19,39 +19,25 @@
 
     <div class="flex items-center gap-3">
       <div>
-        <button @click="decrementCount">-</button>
+        <button @click="cartStore.decrementCount(cartItem)">-</button>
         {{ cartItem.quantity }}
-        <button @click="incrementCount">+</button>
+        <button @click="cartStore.incrementCount(cartItem)">+</button>
       </div>
 
-      <Button @click="removeFromCart(cartItem.product)">Delete</Button>
+      <Button @click="cartStore.removeFromCart(cartItem.product)"
+        >Delete</Button
+      >
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useCartStore } from "@/store/cart.store";
-import { CartItem, Product } from "@/types";
+import { CartItem } from "@/types";
 
-const props = defineProps<{
+defineProps<{
   cartItem: CartItem;
 }>();
 
 const cartStore = useCartStore();
-
-const removeFromCart = (product: Product) => {
-  cartStore.removeFromCart(product);
-};
-
-const incrementCount = () => {
-  cartStore.addToCart(props.cartItem.product);
-};
-
-const decrementCount = () => {
-  if (props.cartItem.quantity > 1) {
-    props.cartItem.quantity -= 1;
-  } else {
-    cartStore.removeFromCart(props.cartItem.product);
-  }
-};
 </script>

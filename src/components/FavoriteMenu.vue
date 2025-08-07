@@ -8,7 +8,7 @@
       class="absolute right-4 top-[80px] bottom-4 bg-white p-3 rounded-3xl overflow-hidden flex flex-col gap-3 border-slate-600 border-2"
     >
       <div class="w-full flex justify-between items-center text-3xl">
-        <p>Favorites: {{ favoriteStore.favorites.length }}</p>
+        <p>Избранное: {{ favoriteStore.favorites.length }}</p>
         <button @click="favoriteStore.closeModal" class="cursor-pointer">
           &times;
         </button>

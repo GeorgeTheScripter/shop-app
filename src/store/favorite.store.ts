@@ -2,12 +2,18 @@ import { Product } from "@/types";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useProductStore } from "./products.store";
+import { useCartStore } from "./cart.store";
 
 export const useFavoriteStore = defineStore("favorite", () => {
+  // state
   const favorites = ref<Product[]>([]);
-  const products = useProductStore();
   const isModalOpen = ref<boolean>(false);
 
+  const productsStore = useProductStore();
+  const cartStore = useCartStore();
+
+  // actions
+  // favorite actions
   const addToFavorite = (product: Product) => {
     if (
       favorites.value.some((favorite: Product) => favorite.id === product.id)
@@ -19,7 +25,7 @@ export const useFavoriteStore = defineStore("favorite", () => {
   };
 
   const removeFromFavorite = (product: Product) => {
-    const currentProduct = products.products.find(
+    const currentProduct = productsStore.products.find(
       (pr: Product) => pr.id === product.id
     );
 
@@ -32,8 +38,13 @@ export const useFavoriteStore = defineStore("favorite", () => {
     );
   };
 
+  const toggleFavorite = (product: Product) =>
+    product.isFavorite ? removeFromFavorite(product) : addToFavorite(product);
+
+  // modal actions
   const openModal = () => {
     if (favorites.value.length > 0) {
+      cartStore.isModalOpen = false;
       isModalOpen.value = true;
     }
   };
@@ -42,21 +53,19 @@ export const useFavoriteStore = defineStore("favorite", () => {
     isModalOpen.value = false;
   };
 
-  const toggleFavoriteModal = () => {
-    if (isModalOpen.value) {
-      closeModal();
-    } else {
-      openModal();
-    }
-  };
+  const toggleFavoriteModal = () =>
+    isModalOpen.value ? closeModal() : openModal();
 
   return {
+    // state
     favorites,
+    isModalOpen,
+    // actions
     addToFavorite,
     removeFromFavorite,
-    isModalOpen,
     openModal,
     closeModal,
     toggleFavoriteModal,
+    toggleFavorite,
   };
 });
