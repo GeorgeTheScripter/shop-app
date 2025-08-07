@@ -11,7 +11,7 @@
     <Like
       class="absolute top-2 right-2"
       :isFavorite="product.isFavorite"
-      @click="favoritesStore.toggleFavorite(product)"
+      @click.stop="favoritesStore.toggleFavorite(product)"
     />
 
     <div class="p-4 flex flex-col gap-4 h-auto">

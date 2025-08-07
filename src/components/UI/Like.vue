@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-gray-200 w-fit p-2 rounded-xl">
+  <div class="bg-gray-200 hover:bg-slate-300 w-fit p-2 rounded-xl">
     <svg
-      :class="heartColor"
+      :class="`${heartColor} duration-300 ease-in-out`"
       width="24px"
       height="24px"
       viewBox="0 0 16 16"
@@ -26,6 +26,6 @@ const props = defineProps<{
 }>();
 
 const heartColor = computed(() => {
-  return props.isFavorite ? "fill-red-500" : "fill-gray-500";
+  return props.isFavorite ? "fill-red-500" : "fill-slate-800";
 });
 </script>
