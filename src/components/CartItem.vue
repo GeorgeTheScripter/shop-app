@@ -4,7 +4,7 @@
   >
     <div class="flex gap-3 items-center">
       <div
-        :style="`background-image: url('${cartItem.product.image}')`"
+        :style="`background-image: url('${cartItem.product.images[0]}')`"
         class="h-[40px] w-[40px] bg-center bg-contain bg-no-repeat"
       ></div>
       <div class="max-w-[280px] flex-1 overflow-hidden">

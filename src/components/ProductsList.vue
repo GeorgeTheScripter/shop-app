@@ -25,6 +25,7 @@ import ProductCard from "./ProductCard.vue";
 const productsStore = useProductStore();
 
 onMounted(async () => {
-  productsStore.fetchProducts();
+  await productsStore.fetchProducts();
+  productsStore.syncFavorite();
 });
 </script>

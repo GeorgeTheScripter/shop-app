@@ -4,7 +4,7 @@
   >
     <div class="flex gap-3 items-center">
       <div
-        :style="`background-image: url('${favorite.image}')`"
+        :style="`background-image: url('${favorite.images[0]}')`"
         class="h-[40px] w-[40px] bg-center bg-contain bg-no-repeat"
       ></div>
       <div class="max-w-[300px] flex-1 overflow-hidden">

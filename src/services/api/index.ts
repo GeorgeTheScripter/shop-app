@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { ApiClient, Product } from "@/types";
 
-const API_BASE = "https://fakestoreapi.com";
+const API_BASE = "https://api.escuelajs.co/api/v1/";
 
 const client = axios.create({
   baseURL: API_BASE,

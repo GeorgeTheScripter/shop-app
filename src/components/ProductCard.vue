@@ -4,8 +4,8 @@
     @click="openProductPage(product.id)"
   >
     <div
-      :style="`background-image: url('${product.image}')`"
-      class="h-[200px] w-full bg-center bg-size-[120px] bg-no-repeat"
+      :style="`background-image: url('${product.images[0]}')`"
+      class="h-[200px] w-full bg-center bg-cover bg-no-repeat"
     ></div>
 
     <Like
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <Button class="w-full" @click="cartStore.addToCart(product)"
+      <Button class="w-full" @click.stop="cartStore.addToCart(product)"
         >Добавить в корзину</Button
       >
     </div>

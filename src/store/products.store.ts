@@ -3,6 +3,7 @@ import { Product } from "@/types";
 import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useFavoriteStore } from "./favorite.store";
 
 export const useProductStore = defineStore("product", () => {
   const LOCAL_STORAGE_KEY = "products";
@@ -29,13 +30,20 @@ export const useProductStore = defineStore("product", () => {
     isLoading.value = false;
   };
 
+  const syncFavorite = () => {
+    const favoritesStore = useFavoriteStore();
+    products.value = products.value.map((product) => ({
+      ...product,
+      isFavorite: favoritesStore.favorites.some(
+        (favorite) => favorite.id === product.id
+      ),
+    }));
+  };
+
   // pricvete methods
   const loadFromAPI = async () => {
     try {
       products.value = await ProductService.getAll();
-      products.value = products.value.map((product: Product) => {
-        return { ...product, isFavorite: false };
-      });
       saveToLocalStorage(LOCAL_STORAGE_KEY, products.value);
     } catch (err) {
       error.value = String(err);
@@ -63,6 +71,7 @@ export const useProductStore = defineStore("product", () => {
     error,
     // actions
     fetchProducts,
+    syncFavorite,
     // getters
     getCurrentProduct,
   };
