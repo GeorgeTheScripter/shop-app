@@ -36,7 +36,7 @@ export const useProductStore = defineStore("product", () => {
     }
   };
 
-  // pricvete methods
+  // private methods
   const loadFromAPI = async () => {
     try {
       products.value = await ProductService.getAll();

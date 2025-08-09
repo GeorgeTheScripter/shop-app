@@ -3,21 +3,17 @@ import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useFavoriteStore } from "./favorite.store";
 import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
-import { loadFromLocalStorage } from "@/utils/loadFromLocalStorage";
+import { loadCartItems } from "@/utils/storageUtils";
 
 export const useCartStore = defineStore("cart", () => {
   const LOCAL_STORAGE_KEY = "cart";
   // state
   const cart = ref<CartItem[]>([]);
   const isModalOpen = ref<boolean>(false);
-  const favoritesStore = useFavoriteStore();
   const error = ref<string>("");
 
-  const initialize = () => {
-    cart.value = loadFromLocalStorage<CartItem[]>(LOCAL_STORAGE_KEY, error, []);
-  };
+  const favoritesStore = useFavoriteStore();
 
-  initialize();
   // actions
   // cart actions
   const addToCart = (product: Product) => {
@@ -82,6 +78,13 @@ export const useCartStore = defineStore("cart", () => {
       return sum + el.quantity;
     }, 0);
   });
+
+  // private methods
+  const initialize = () => {
+    cart.value = loadCartItems(LOCAL_STORAGE_KEY, error);
+  };
+
+  initialize();
 
   return {
     // state
