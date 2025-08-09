@@ -19,25 +19,21 @@ export const useProductStore = defineStore("product", () => {
 
     isLoading.value = true;
 
-    const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+    try {
+      const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
 
-    if (savedData) {
-      await loadFromStorage(savedData);
-    } else {
-      await loadFromAPI();
+      if (savedData) {
+        await loadFromStorage(savedData);
+      } else {
+        await loadFromAPI();
+      }
+
+      syncFavorite();
+    } catch (err) {
+      error.value = String(err);
+    } finally {
+      isLoading.value = false;
     }
-
-    isLoading.value = false;
-  };
-
-  const syncFavorite = () => {
-    const favoritesStore = useFavoriteStore();
-    products.value = products.value.map((product) => ({
-      ...product,
-      isFavorite: favoritesStore.favorites.some(
-        (favorite) => favorite.id === product.id
-      ),
-    }));
   };
 
   // pricvete methods
@@ -59,6 +55,16 @@ export const useProductStore = defineStore("product", () => {
     }
   };
 
+  const syncFavorite = () => {
+    const favoritesStore = useFavoriteStore();
+    products.value = products.value.map((product) => ({
+      ...product,
+      isFavorite: favoritesStore.favorites.some(
+        (favorite) => favorite.id === product.id
+      ),
+    }));
+  };
+
   // getters
   const getCurrentProduct = (id: number): Product | undefined => {
     return products.value.find((product: Product) => product.id === id);
@@ -71,7 +77,6 @@ export const useProductStore = defineStore("product", () => {
     error,
     // actions
     fetchProducts,
-    syncFavorite,
     // getters
     getCurrentProduct,
   };

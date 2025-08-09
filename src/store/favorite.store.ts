@@ -17,7 +17,11 @@ export const useFavoriteStore = defineStore("favorite", () => {
   const cartStore = useCartStore();
 
   const initialize = () => {
-    favorites.value = loadFromLocalStorage(LOCAL_STORAGE_KEY, error);
+    favorites.value = loadFromLocalStorage<Product[]>(
+      LOCAL_STORAGE_KEY,
+      error,
+      []
+    );
 
     // Flags syncronize
     favorites.value.forEach((fav) => {

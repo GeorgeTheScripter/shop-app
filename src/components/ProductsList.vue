@@ -26,6 +26,5 @@ const productsStore = useProductStore();
 
 onMounted(async () => {
   await productsStore.fetchProducts();
-  productsStore.syncFavorite();
 });
 </script>
