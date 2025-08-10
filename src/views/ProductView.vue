@@ -6,12 +6,17 @@
     </div>
 
     <div class="w-[1280px] mx-auto flex gap-12 mt-12" v-if="product">
-      <div class="border-slate-600 border-2 rounded-xl overflow-hidden">
-        <div
-          :style="`background-image: url('${product.images[0]}')`"
-          class="h-[400px] w-[400px] bg-center bg-cover bg-no-repeat block"
-        ></div>
-      </div>
+      <!-- <div
+        class="w-[400px] rounded-xl overflow-hidden border-slate-600 border-2"
+      >
+        <Splide :options="{ rewind: true }" aria-label="product images">
+          <SplideSlide v-for="image in product.images" :key="image">
+            <img :src="image" alt="Sample 1" />
+          </SplideSlide>
+        </Splide>
+      </div> -->
+
+      <ProductSplide :images="product.images" />
 
       <div class="flex flex-col justify-between flex-1">
         <div>
@@ -47,6 +52,7 @@
 
 <script setup lang="ts">
 import ProductsList from "@/components/ProductsList.vue";
+import ProductSplide from "@/components/ProductSplide.vue";
 import { useCartStore } from "@/store/cart.store";
 import { useFavoriteStore } from "@/store/favorite.store";
 import { useProductStore } from "@/store/products.store";
