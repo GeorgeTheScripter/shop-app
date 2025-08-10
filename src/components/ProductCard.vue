@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full h-full rounded-xl overflow-hidden cursor-pointer relative border-slate-600 border-2"
+    class="w-full h-full rounded-xl overflow-hidden cursor-pointer relative border-slate-600 border-2 flex flex-col"
     @click="openProductPage(product.id)"
   >
     <div
@@ -14,11 +14,13 @@
       @click.stop="favoritesStore.toggleFavorite(product)"
     />
 
-    <div class="p-4 flex flex-col gap-4 h-auto">
+    <div class="p-4 flex flex-col gap-4 h-auto flex-1 justify-between">
       <div class="flex flex-col gap-3">
         <p class="text-xl font-bold text-slate-600">{{ product.price }}$</p>
         <div class="flex flex-col gap-1">
-          <p class="text-lg font-medium text-slate-600">{{ product.title }}</p>
+          <p class="text-lg/[110%] font-medium text-slate-600">
+            {{ product.title }}
+          </p>
           <p class="text-xs truncate text-slate-400">
             {{ product.description }}
           </p>
