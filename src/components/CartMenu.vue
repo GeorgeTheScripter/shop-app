@@ -22,7 +22,7 @@
         />
       </div>
 
-      <div class="w-full flex flex-col gap-4">
+      <div class="w-full">
         <div class="text-xl flex justify-between">
           <p>Итого:</p>
           <p>{{ cartStore.getTotalPrice.toFixed(2) }}$</p>
