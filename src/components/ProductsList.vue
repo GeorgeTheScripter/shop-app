@@ -8,7 +8,7 @@
     >
       <div class="w-[1280px] m-auto grid grid-cols-4 gap-5">
         <ProductCard
-          v-for="product in productsStore.products"
+          v-for="product in productsStore.paginatedProducts"
           :product="product"
           :key="product.id"
         />

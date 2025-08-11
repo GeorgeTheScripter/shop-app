@@ -1,22 +1,27 @@
 <template>
   <div class="flex gap-2 justify-center">
     <Button
-      v-for="pageNumber in productsStore.totalPages"
+      v-for="page in totalPages"
+      @click="productsStore.setPage(page)"
       :class="{
-        'bg-slate-400': pageNumber === productsStore.page,
+        'bg-slate-300': page === productsStore.currentPage,
       }"
-      @click="productsStore.changePage(pageNumber)"
-      >{{ pageNumber }}</Button
+      >{{ page }}</Button
     >
   </div>
 </template>
 
 <script setup lang="ts">
 import { useProductStore } from "@/store/products.store";
+import { computed } from "vue";
 
 defineOptions({
   name: "Pagination",
 });
 
 const productsStore = useProductStore();
+
+const totalPages = computed(() => {
+  return Math.ceil(productsStore.totalProducts / productsStore.itemsPerPage);
+});
 </script>

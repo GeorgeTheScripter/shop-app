@@ -1,6 +1,6 @@
 <template>
   <button
-    class="bg-slate-200 text-slate-800 px-6 py-2 rounded-xl cursor-pointer hover:bg-slate-300 font-medium relative"
+    class="bg-slate-200 text-slate-800 px-6 py-2 rounded-xl cursor-pointer hover:bg-slate-300 font-medium relative duration-300"
   >
     <slot></slot>
     <div
