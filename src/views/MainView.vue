@@ -4,7 +4,10 @@
       <h3 class="text-4xl text-slate-600">Популярное</h3>
     </div>
 
-    <ProductsList />
+    <div class="flex flex-col gap-4">
+      <ProductsList />
+      <Pagination />
+    </div>
   </div>
 </template>
 

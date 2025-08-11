@@ -18,4 +18,11 @@ export const apiClient: ApiClient = {
     const response = await client.get(`/products/${id}`);
     return response.data;
   },
+
+  getProductByPage: async (page: number, limit: number): Promise<Product[]> => {
+    const response = await client.get(
+      `/products/?offset=${page}&limit=${limit}`
+    );
+    return response.data;
+  },
 };

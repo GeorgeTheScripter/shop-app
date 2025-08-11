@@ -1,17 +1,22 @@
 import { ProductService } from "@/services/product/productService";
 import { Product } from "@/types";
-import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
+// import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useFavoriteStore } from "./favorite.store";
 
 export const useProductStore = defineStore("product", () => {
-  const LOCAL_STORAGE_KEY = "products";
+  // const LOCAL_STORAGE_KEY = "products";
 
   // state
   const products = ref<Product[]>([]);
   const isLoading = ref<boolean>(false);
   const error = ref<string>("");
+
+  const page = ref<number>(1);
+  const pageToApi = ref<number>(0);
+  const limit = ref<number>(8);
+  const totalPages = ref<number>(0);
 
   // actions
   const fetchProducts = async () => {
@@ -20,14 +25,7 @@ export const useProductStore = defineStore("product", () => {
     isLoading.value = true;
 
     try {
-      const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
-
-      if (savedData) {
-        await loadFromStorage(savedData);
-      } else {
-        await loadFromAPI();
-      }
-
+      await loadFromAPI();
       syncFavorite();
     } catch (err) {
       error.value = String(err);
@@ -39,21 +37,35 @@ export const useProductStore = defineStore("product", () => {
   // private methods
   const loadFromAPI = async () => {
     try {
-      products.value = await ProductService.getAll();
-      saveToLocalStorage(LOCAL_STORAGE_KEY, products.value);
+      products.value = await ProductService.getByPage(
+        pageToApi.value,
+        limit.value
+      );
+      totalPages.value = Math.ceil(50 / limit.value);
+      // saveToLocalStorage(LOCAL_STORAGE_KEY, products.value);
     } catch (err) {
       error.value = String(err);
     }
   };
 
-  const loadFromStorage = async (savedData: string) => {
-    try {
-      products.value = JSON.parse(savedData);
-    } catch (err) {
-      error.value = "Parsing Error";
-      await loadFromAPI();
-    }
+  const changePage = (pageNumber: number) => {
+    page.value = pageNumber;
+    pageToApi.value = (pageNumber - 1) * limit.value;
   };
+
+  watch(page, () => {
+    fetchProducts();
+  });
+
+  // refactor later
+  // const loadFromStorage = async (savedData: string) => {
+  //   try {
+  //     products.value = JSON.parse(savedData);
+  //   } catch (err) {
+  //     error.value = "Parsing Error";
+  //     await loadFromAPI();
+  //   }
+  // };
 
   const syncFavorite = () => {
     const favoritesStore = useFavoriteStore();
@@ -75,6 +87,11 @@ export const useProductStore = defineStore("product", () => {
     products,
     isLoading,
     error,
+
+    totalPages,
+    page,
+    limit,
+    changePage,
     // actions
     fetchProducts,
     // getters

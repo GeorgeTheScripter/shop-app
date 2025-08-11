@@ -4,13 +4,15 @@
 
     <div
       v-else-if="productsStore.products.length > 0"
-      class="w-[1280px] m-auto grid grid-cols-4 gap-5"
+      class="flex flex-col gap-4"
     >
-      <ProductCard
-        v-for="product in productsStore.products"
-        :product="product"
-        :key="product.id"
-      />
+      <div class="w-[1280px] m-auto grid grid-cols-4 gap-5">
+        <ProductCard
+          v-for="product in productsStore.products"
+          :product="product"
+          :key="product.id"
+        />
+      </div>
     </div>
 
     <div v-else class="text-center py-8">Товары не найдены</div>

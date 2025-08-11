@@ -19,4 +19,5 @@ export interface CartItem {
 export interface ApiClient {
   getProducts: () => Promise<Product[]>;
   getProductById: (id: number) => Promise<Product>;
+  getProductByPage: (page: number, limit: number) => Promise<Product[]>;
 }
