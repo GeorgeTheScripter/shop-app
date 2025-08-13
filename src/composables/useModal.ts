@@ -4,7 +4,6 @@ interface ModalComposable {
   isOpen: Ref<boolean>;
   open: () => void;
   close: () => void;
-  toggle: () => void;
 }
 
 export const useModal = (initialState: boolean = false): ModalComposable => {
@@ -18,14 +17,9 @@ export const useModal = (initialState: boolean = false): ModalComposable => {
     isOpen.value = false;
   };
 
-  const toggle = () => {
-    isOpen.value = !isOpen.value;
-  };
-
   return {
     isOpen,
     open,
     close,
-    toggle,
   };
 };

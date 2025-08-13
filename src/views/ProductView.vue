@@ -6,16 +6,6 @@
     </div>
 
     <div class="w-[1280px] mx-auto flex gap-12 mt-12" v-if="product">
-      <!-- <div
-        class="w-[400px] rounded-xl overflow-hidden border-slate-600 border-2"
-      >
-        <Splide :options="{ rewind: true }" aria-label="product images">
-          <SplideSlide v-for="image in product.images" :key="image">
-            <img :src="image" alt="Sample 1" />
-          </SplideSlide>
-        </Splide>
-      </div> -->
-
       <ProductSplide :images="product.images" />
 
       <div class="flex flex-col justify-between flex-1">
@@ -67,6 +57,4 @@ const cartStore = useCartStore();
 const favoritesStore = useFavoriteStore();
 
 const product = computed(() => productStore.getCurrentProduct(props.id));
-
-console.log(product.value?.isFavorite);
 </script>
