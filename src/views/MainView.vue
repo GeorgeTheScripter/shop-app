@@ -5,6 +5,13 @@
     </div>
 
     <div class="flex flex-col gap-4">
+      <div class="w-[1280px] mx-auto flex justify-end">
+        <div class="flex gap-2">
+          <Input v-model="inputState" />
+          <Button>Поиск</Button>
+        </div>
+      </div>
+
       <ProductsList />
       <Pagination />
     </div>
@@ -13,4 +20,7 @@
 
 <script setup lang="ts">
 import ProductsList from "@/components/ProductsList.vue";
+import { ref } from "vue";
+
+const inputState = ref<string>();
 </script>

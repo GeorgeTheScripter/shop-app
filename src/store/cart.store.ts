@@ -4,12 +4,13 @@ import { computed, ref } from "vue";
 import { useFavoriteStore } from "./favorite.store";
 import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
 import { loadCartItems } from "@/utils/storageUtils";
+import { useModal } from "@/composables/useModal";
 
 export const useCartStore = defineStore("cart", () => {
   const LOCAL_STORAGE_KEY = "cart";
   // state
   const cart = ref<CartItem[]>([]);
-  const isModalOpen = ref<boolean>(false);
+  const { isOpen, close, open } = useModal();
   const error = ref<string>("");
 
   const favoritesStore = useFavoriteStore();
@@ -37,19 +38,17 @@ export const useCartStore = defineStore("cart", () => {
   };
 
   // modal actions
+  // Можно упростить через вспомогательный композабл позже
   const openModal = () => {
     if (cart.value.length > 0) {
       favoritesStore.isModalOpen = false;
-      isModalOpen.value = true;
+      open();
     }
   };
 
-  const closeModal = () => {
-    isModalOpen.value = false;
+  const toggleCartModal = () => {
+    isOpen.value ? close() : openModal();
   };
-
-  const toggleCartModal = () =>
-    isModalOpen.value ? closeModal() : openModal();
 
   // count actions
   const incrementCount = (item: CartItem) => {
@@ -89,12 +88,12 @@ export const useCartStore = defineStore("cart", () => {
   return {
     // state
     cart,
-    isModalOpen,
+    isModalOpen: isOpen,
     // actions
     addToCart,
     removeFromCart,
     openModal,
-    closeModal,
+    closeModal: close,
     toggleCartModal,
     incrementCount,
     decrementCount,

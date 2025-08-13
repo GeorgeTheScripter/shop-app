@@ -5,13 +5,14 @@ import { useProductStore } from "./products.store";
 import { useCartStore } from "./cart.store";
 import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
 import { loadProducts } from "@/utils/storageUtils";
+import { useModal } from "@/composables/useModal";
 
 export const useFavoriteStore = defineStore("favorite", () => {
   const LOCAL_STORAGE_KEY = "favorites";
 
   // state
   const favorites = ref<Product[]>([]);
-  const isModalOpen = ref<boolean>(false);
+  const { isOpen, close, open } = useModal();
   const error = ref<string>("");
 
   const productsStore = useProductStore();
@@ -51,19 +52,17 @@ export const useFavoriteStore = defineStore("favorite", () => {
     product.isFavorite ? removeFromFavorite(product) : addToFavorite(product);
 
   // modal actions
+  // Можно упростить через вспомогательный композабл позже
   const openModal = () => {
     if (favorites.value.length > 0) {
       cartStore.isModalOpen = false;
-      isModalOpen.value = true;
+      open();
     }
   };
 
-  const closeModal = () => {
-    isModalOpen.value = false;
+  const toggleFavoriteModal = () => {
+    isOpen.value ? close() : openModal();
   };
-
-  const toggleFavoriteModal = () =>
-    isModalOpen.value ? closeModal() : openModal();
 
   // prvate methods
   const initialize = () => {
@@ -83,12 +82,11 @@ export const useFavoriteStore = defineStore("favorite", () => {
   return {
     // state
     favorites,
-    isModalOpen,
+    isModalOpen: isOpen,
     // actions
     addToFavorite,
     removeFromFavorite,
-    openModal,
-    closeModal,
+    closeModal: close,
     toggleFavoriteModal,
     toggleFavorite,
   };
