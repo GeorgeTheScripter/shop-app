@@ -1,36 +1,8 @@
 <template>
   <div class="mt-24">
-    <div class="w-[1280px] mx-auto text-xl flex gap-2">
-      <router-link to="/" class="text-slate-800">Главная</router-link> /
-      <p class="text-slate-400">{{ product?.title }}</p>
-    </div>
-
-    <div class="w-[1280px] mx-auto flex gap-12 mt-12" v-if="product">
-      <ProductSplide :images="product.images" />
-
-      <div class="flex flex-col justify-between flex-1">
-        <div>
-          <p class="text-2xl text-slate-800 font-medium">
-            {{ product.price }}$
-          </p>
-          <p class="text-2xl max-w-[500px] text-slate-800">
-            {{ product.title }}
-          </p>
-          <p class="text-lg">{{ product.category.name }}</p>
-          <p class="text-lg/snug text-slate-600">{{ product.description }}</p>
-        </div>
-
-        <div class="flex gap-2">
-          <Like
-            class="cursor-pointer"
-            :isFavorite="product.isFavorite"
-            @click="favoritesStore.toggleFavorite(product)"
-          />
-          <Button class="" @click="cartStore.addToCart(product)"
-            >Добавить в корзину</Button
-          >
-        </div>
-      </div>
+    <div class="w-[1280px] mx-auto flex flex-col gap-12" v-if="product">
+      <Crumbs :rootName="'Главная'" :currentName="product.title" />
+      <ProductInfo :product="product" />
     </div>
 
     <div class="w-[1280px] mx-auto mt-24 mb-6">
@@ -42,10 +14,8 @@
 
 <script setup lang="ts">
 import ProductsList from "@/components/ProductsList.vue";
-import ProductSplide from "@/components/ProductSplide.vue";
-import { useCartStore } from "@/store/cart.store";
-import { useFavoriteStore } from "@/store/favorite.store";
 import { useProductStore } from "@/store/products.store";
+import ProductInfo from "@/components/ProductInfo.vue";
 import { computed } from "vue";
 
 const props = defineProps<{
@@ -53,8 +23,6 @@ const props = defineProps<{
 }>();
 
 const productStore = useProductStore();
-const cartStore = useCartStore();
-const favoritesStore = useFavoriteStore();
 
 const product = computed(() => productStore.getCurrentProduct(props.id));
 </script>
