@@ -1,5 +1,5 @@
 import { ProductService } from "@/services/product/productService";
-import { Product } from "@/types";
+import { Product, SortType, Option } from "@/types";
 import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
@@ -9,13 +9,21 @@ export const useProductStore = defineStore("product", () => {
   const LOCAL_STORAGE_KEY = "products";
 
   // state
+  // products:
   const products = ref<Product[]>([]);
   const isLoading = ref<boolean>(false);
   const error = ref<string>("");
-
+  // pagination:
   const currentPage = ref<number>(1);
   const itemsPerPage = ref<number>(8);
   const totalProducts = ref<number>(0);
+  // search and filter
+  const searchQuery = ref<string>("");
+  const sortType = ref<SortType>(SortType.DESCENDING);
+  const options = ref<Option[]>([
+    { value: SortType.ASCENDING, name: "Возрастанию цены" },
+    { value: SortType.DESCENDING, name: "Убыванию цены" },
+  ]);
 
   // actions
   const fetchProducts = async () => {
@@ -37,6 +45,36 @@ export const useProductStore = defineStore("product", () => {
     currentPage.value = page;
   };
 
+  const sortedAndSearchedProducts = computed((): Product[] => {
+    let result: Product[] = [...products.value];
+
+    // Search
+    if (searchQuery.value) {
+      const query: string = searchQuery.value.toLocaleLowerCase();
+
+      result = result.filter((product: Product): boolean => {
+        return (
+          product.title.toLocaleLowerCase().includes(query) ||
+          product.description.toLocaleLowerCase().includes(query)
+        );
+      });
+    }
+
+    // Sort
+    switch (sortType.value.trim()) {
+      case SortType.ASCENDING:
+        return [...result].sort(
+          (a: Product, b: Product): number => a.price - b.price
+        );
+      case SortType.DESCENDING:
+        return [...result].sort(
+          (a: Product, b: Product): number => b.price - a.price
+        );
+      default:
+        return result;
+    }
+  });
+
   // private methods
   const loadFromAPI = async () => {
     try {
@@ -47,16 +85,6 @@ export const useProductStore = defineStore("product", () => {
       error.value = String(err);
     }
   };
-
-  // refactor later
-  // const loadFromStorage = async (savedData: string) => {
-  //   try {
-  //     products.value = JSON.parse(savedData);
-  //   } catch (err) {
-  //     error.value = "Parsing Error";
-  //     await loadFromAPI();
-  //   }
-  // };
 
   const syncFavorite = () => {
     const favoritesStore = useFavoriteStore();
@@ -77,7 +105,7 @@ export const useProductStore = defineStore("product", () => {
     const start = (currentPage.value - 1) * itemsPerPage.value;
     const end = start + itemsPerPage.value;
 
-    return products.value.slice(start, end);
+    return sortedAndSearchedProducts.value.slice(start, end);
   });
 
   return {
@@ -88,6 +116,10 @@ export const useProductStore = defineStore("product", () => {
     currentPage,
     itemsPerPage,
     totalProducts,
+    searchQuery,
+    sortType,
+    options,
+    sortedAndSearchedProducts,
     // actions
     fetchProducts,
     setPage,

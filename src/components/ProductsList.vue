@@ -3,7 +3,7 @@
     <div v-if="productsStore.isLoading">Загрузка...</div>
 
     <div
-      v-else-if="productsStore.products.length > 0"
+      v-else-if="productsStore.paginatedProducts.length > 0"
       class="flex flex-col gap-4"
     >
       <div class="w-[1280px] m-auto grid grid-cols-4 gap-5">
