@@ -1,7 +1,7 @@
 import { Product } from "@/types";
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { useProductStore } from "./products.store";
+import { useProductStore } from "@/store/products";
 import { useCartStore } from "./cart.store";
 import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
 import { loadProducts } from "@/utils/storageUtils";

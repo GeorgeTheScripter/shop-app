@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProductStore } from "@/store/products.store";
+import { useProductStore } from "@/store/products";
 import { storeToRefs } from "pinia";
 
 const { searchQuery, sortType, options } = storeToRefs(useProductStore());

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div v-if="productsStore.isLoading">Загрузка...</div>
+    <div v-if="store.isLoading">Загрузка...</div>
 
     <div
-      v-else-if="productsStore.paginatedProducts.length > 0"
+      v-else-if="store.paginatedProducts.length > 0"
       class="flex flex-col gap-4"
     >
       <div class="w-[1280px] m-auto grid grid-cols-4 gap-5">
         <ProductCard
-          v-for="product in productsStore.paginatedProducts"
+          v-for="product in store.paginatedProducts"
           :product="product"
           :key="product.id"
         />
@@ -20,13 +20,13 @@
 </template>
 
 <script setup lang="ts">
-import { useProductStore } from "@/store/products.store";
 import { onMounted } from "vue";
 import ProductCard from "./ProductCard.vue";
+import { useProductStore } from "@/store/products";
 
-const productsStore = useProductStore();
+const store = useProductStore();
 
 onMounted(async () => {
-  await productsStore.fetchProducts();
+  await store.fetchProducts();
 });
 </script>

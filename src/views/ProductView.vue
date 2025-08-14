@@ -14,9 +14,9 @@
 
 <script setup lang="ts">
 import ProductsList from "@/components/ProductsList.vue";
-import { useProductStore } from "@/store/products.store";
 import ProductInfo from "@/components/ProductInfo.vue";
 import { computed } from "vue";
+import { useProductStore } from "@/store/products";
 
 const props = defineProps<{
   id: number;

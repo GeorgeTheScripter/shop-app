@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProductStore } from "@/store/products.store";
+import { useProductStore } from "@/store/products";
 import { computed } from "vue";
 
 defineOptions({
@@ -22,6 +22,6 @@ defineOptions({
 const productsStore = useProductStore();
 
 const totalPages = computed(() => {
-  return Math.ceil(productsStore.totalProducts / productsStore.itemsPerPage);
+  return Math.ceil(productsStore.products.length / productsStore.itemsPerPage);
 });
 </script>
