@@ -1,5 +1,6 @@
 import { Product } from "@/types";
 import { computed, Ref, ref } from "vue";
+import { paginate } from "./utils/paginate";
 
 export const usePagination = () => {
   const currentPage = ref<number>(1);
@@ -11,14 +12,10 @@ export const usePagination = () => {
 
   const getPaginated = (
     sortedAndSearchedProducts: Ref<Product[]>
-  ): Ref<Product[]> => {
-    return computed(() => {
-      const start = (currentPage.value - 1) * itemsPerPage.value;
-      const end = start + itemsPerPage.value;
-
-      return sortedAndSearchedProducts.value.slice(start, end);
-    });
-  };
+  ): Ref<Product[]> =>
+    computed(() =>
+      paginate(sortedAndSearchedProducts, currentPage, itemsPerPage)
+    );
 
   return {
     currentPage,
