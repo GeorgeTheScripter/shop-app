@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { usePagination } from "./pagination";
 import { useSearchAndFilter } from "./searchAndFilter";
 import { useProducts } from "./products";
-import { toRefs } from "vue";
 
 export const useProductStore = defineStore("product", () => {
   const productsModule = useProducts();
@@ -14,9 +13,9 @@ export const useProductStore = defineStore("product", () => {
   );
 
   return {
-    ...toRefs(productsModule),
-    ...toRefs(paginationModule),
-    ...toRefs(searchAndSortModule),
+    ...productsModule,
+    ...paginationModule,
+    ...searchAndSortModule,
     paginatedProducts,
   };
 });

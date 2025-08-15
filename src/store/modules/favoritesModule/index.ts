@@ -2,9 +2,9 @@ import { Product } from "@/types";
 import { defineStore } from "pinia";
 import { ref, toRefs } from "vue";
 import { useProductStore } from "@/store/modules/productsModule";
-import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
 import { loadProducts } from "@/utils/storageUtils";
-import { useFavoritesModal } from "./modal/modal";
+import { useFavoritesModal } from "./utils/modal";
+import { useAddAndRemove } from "./utils/actions";
 
 export const useFavoriteStore = defineStore("favorite", () => {
   const LOCAL_STORAGE_KEY = "favorites";
@@ -12,42 +12,9 @@ export const useFavoriteStore = defineStore("favorite", () => {
   // state
   const favorites = ref<Product[]>([]);
   const favoritesModal = useFavoritesModal();
+  const favoriteActions = useAddAndRemove();
   const error = ref<string>("");
-
   const productsStore = useProductStore();
-
-  // actions
-  // favorite actions
-  const addToFavorite = (product: Product) => {
-    if (
-      favorites.value.some((favorite: Product) => favorite.id === product.id)
-    ) {
-      return;
-    }
-    product.isFavorite = true;
-    favorites.value.push({ ...product, isFavorite: true });
-
-    saveToLocalStorage(LOCAL_STORAGE_KEY, favorites.value);
-  };
-
-  const removeFromFavorite = (product: Product) => {
-    const currentProduct = productsStore.products.find(
-      (pr: Product) => pr.id === product.id
-    );
-
-    if (currentProduct) {
-      currentProduct.isFavorite = false;
-    }
-
-    favorites.value = favorites.value.filter(
-      (favorite: Product) => favorite.id !== product.id
-    );
-
-    saveToLocalStorage(LOCAL_STORAGE_KEY, favorites.value);
-  };
-
-  const toggleFavorite = (product: Product) =>
-    product.isFavorite ? removeFromFavorite(product) : addToFavorite(product);
 
   // prvate methods
   const initialize = () => {
@@ -67,10 +34,7 @@ export const useFavoriteStore = defineStore("favorite", () => {
   return {
     // state
     favorites,
-    ...toRefs(favoritesModal),
-    // actions
-    addToFavorite,
-    removeFromFavorite,
-    toggleFavorite,
+    ...favoritesModal,
+    ...favoriteActions,
   };
 });

@@ -71,7 +71,7 @@ export const useCartStore = defineStore("cart", () => {
   return {
     // state
     cart,
-    ...toRefs(cartModal),
+    ...cartModal,
     // actions
     addToCart,
     removeFromCart,
