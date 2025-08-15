@@ -21,10 +21,10 @@
 <script setup lang="ts">
 import Header from "@/components/Header.vue";
 import FavoriteMenu from "@/components/FavoriteMenu.vue";
-import { useFavoriteStore } from "@/store/favorite.store";
+import { useFavoriteStore } from "@/store/modules/favoritesModule";
 import { computed } from "vue";
 import CartMenu from "@/components/CartMenu.vue";
-import { useCartStore } from "@/store/cart.store";
+import { useCartStore } from "@/store/modules/cartModule";
 import FadeTransaction from "@/components/FadeTransaction.vue";
 import Footer from "@/components/Footer.vue";
 
@@ -32,10 +32,10 @@ const favoriteStore = useFavoriteStore();
 const cartStore = useCartStore();
 
 const isFavoriteModalOpen = computed(
-  () => favoriteStore.isModalOpen && favoriteStore.favorites.length > 0
+  () => favoriteStore.isOpen && favoriteStore.favorites.length > 0
 );
 
 const isCartModalOpen = computed(
-  () => cartStore.isModalOpen && cartStore.cart.length > 0
+  () => cartStore.isOpen && cartStore.cart.length > 0
 );
 </script>

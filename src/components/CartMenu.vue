@@ -1,7 +1,7 @@
 <template>
   <div
     class="fixed top-0 right-0 left-0 bottom-0 bg-black/20"
-    @click="cartStore.closeModal"
+    @click="cartStore.close"
   >
     <div
       @click.stop
@@ -9,9 +9,7 @@
     >
       <div class="w-full flex justify-between items-center text-3xl">
         <p>Корзина: {{ cartStore.getTotalCount }}</p>
-        <button @click="cartStore.closeModal" class="cursor-pointer">
-          &times;
-        </button>
+        <button @click="cartStore.close" class="cursor-pointer">&times;</button>
       </div>
 
       <div class="flex flex-col gap-2 overflow-y-scroll h-full pb-2">
@@ -35,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCartStore } from "@/store/cart.store";
+import { useCartStore } from "@/store/modules/cartModule";
 import CartItem from "./CartItem.vue";
 
 const cartStore = useCartStore();

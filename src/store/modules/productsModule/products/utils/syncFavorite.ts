@@ -1,4 +1,4 @@
-import { useFavoriteStore } from "@/store/favorite.store";
+import { useFavoriteStore } from "@/store/modules/favoritesModule";
 import { Product } from "@/types";
 import { Ref } from "vue";
 

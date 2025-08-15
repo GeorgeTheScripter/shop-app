@@ -16,7 +16,7 @@
 import ProductsList from "@/components/ProductsList.vue";
 import ProductInfo from "@/components/ProductInfo.vue";
 import { computed } from "vue";
-import { useProductStore } from "@/store/products";
+import { useProductStore } from "@/store/modules/productsModule";
 
 const props = defineProps<{
   id: number;

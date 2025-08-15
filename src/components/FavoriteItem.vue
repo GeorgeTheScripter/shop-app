@@ -22,8 +22,8 @@
 </template>
 
 <script setup lang="ts">
+import { useFavoriteStore } from "@/store/modules/favoritesModule";
 import { Product } from "@/types";
-import { useFavoriteStore } from "@/store/favorite.store";
 
 defineProps<{
   favorite: Product;

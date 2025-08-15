@@ -1,22 +1,20 @@
 import { Product } from "@/types";
 import { defineStore } from "pinia";
-import { ref } from "vue";
-import { useProductStore } from "@/store/products";
-import { useCartStore } from "./cart.store";
+import { ref, toRefs } from "vue";
+import { useProductStore } from "@/store/modules/productsModule";
 import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
 import { loadProducts } from "@/utils/storageUtils";
-import { useModal } from "@/composables/useModal";
+import { useFavoritesModal } from "./modal/modal";
 
 export const useFavoriteStore = defineStore("favorite", () => {
   const LOCAL_STORAGE_KEY = "favorites";
 
   // state
   const favorites = ref<Product[]>([]);
-  const { isOpen, close, open } = useModal();
+  const favoritesModal = useFavoritesModal();
   const error = ref<string>("");
 
   const productsStore = useProductStore();
-  const cartStore = useCartStore();
 
   // actions
   // favorite actions
@@ -51,19 +49,6 @@ export const useFavoriteStore = defineStore("favorite", () => {
   const toggleFavorite = (product: Product) =>
     product.isFavorite ? removeFromFavorite(product) : addToFavorite(product);
 
-  // modal actions
-  // Можно упростить через вспомогательный композабл позже
-  const openModal = () => {
-    if (favorites.value.length > 0) {
-      cartStore.isModalOpen = false;
-      open();
-    }
-  };
-
-  const toggleFavoriteModal = () => {
-    isOpen.value ? close() : openModal();
-  };
-
   // prvate methods
   const initialize = () => {
     favorites.value = loadProducts(LOCAL_STORAGE_KEY, error);
@@ -82,12 +67,10 @@ export const useFavoriteStore = defineStore("favorite", () => {
   return {
     // state
     favorites,
-    isModalOpen: isOpen,
+    ...toRefs(favoritesModal),
     // actions
     addToFavorite,
     removeFromFavorite,
-    closeModal: close,
-    toggleFavoriteModal,
     toggleFavorite,
   };
 });

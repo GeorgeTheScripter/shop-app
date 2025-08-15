@@ -9,18 +9,14 @@ export const useProductStore = defineStore("product", () => {
   const paginationModule = usePagination();
   const searchAndSortModule = useSearchAndFilter();
 
-  const sortedAndSearchedProducts =
-    searchAndSortModule.getSearchedAndSortedProducts(productsModule.products);
-
   const paginatedProducts = paginationModule.getPaginated(
-    sortedAndSearchedProducts
+    searchAndSortModule.getSearchedAndSortedProducts(productsModule.products)
   );
 
   return {
     ...toRefs(productsModule),
     ...toRefs(paginationModule),
     ...toRefs(searchAndSortModule),
-
     paginatedProducts,
   };
 });

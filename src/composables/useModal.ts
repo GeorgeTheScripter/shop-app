@@ -6,7 +6,17 @@ interface ModalComposable {
   close: () => void;
 }
 
-export const useModal = (initialState: boolean = false): ModalComposable => {
+export interface StorModalComposable extends ModalComposable {
+  openModal: () => void;
+  toggleModal: () => void;
+}
+
+interface ModalOtions {
+  checkCondition: () => boolean;
+  closeOtherStore: () => void;
+}
+
+const useModal = (initialState: boolean = false): ModalComposable => {
   const isOpen = ref<boolean>(initialState);
 
   const open = () => {
@@ -21,5 +31,28 @@ export const useModal = (initialState: boolean = false): ModalComposable => {
     isOpen,
     open,
     close,
+  };
+};
+
+export const useStoreModal = (options: ModalOtions): StorModalComposable => {
+  const { isOpen, open, close } = useModal();
+
+  const openModal = () => {
+    if (options.checkCondition()) {
+      options.closeOtherStore();
+      open();
+    }
+  };
+
+  const toggleModal = () => {
+    isOpen.value ? close() : openModal();
+  };
+
+  return {
+    isOpen,
+    open,
+    close,
+    openModal,
+    toggleModal,
   };
 };

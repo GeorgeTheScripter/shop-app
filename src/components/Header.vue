@@ -6,20 +6,18 @@
       </div>
 
       <div class="flex gap-2">
-        <Button @click="favoriteStore.toggleFavoriteModal" :isFavorite="true"
+        <Button @click="favoriteStore.toggleModal" :isFavorite="true"
           >Избранное</Button
         >
-        <Button @click="cartStore.toggleCartModal" :isCart="true"
-          >Корзина</Button
-        >
+        <Button @click="cartStore.toggleModal" :isCart="true">Корзина</Button>
       </div>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-import { useCartStore } from "@/store/cart.store";
-import { useFavoriteStore } from "@/store/favorite.store";
+import { useCartStore } from "@/store/modules/cartModule";
+import { useFavoriteStore } from "@/store/modules/favoritesModule";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

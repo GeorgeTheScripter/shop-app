@@ -1,20 +1,16 @@
 import { CartItem, Product } from "@/types";
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
-import { useFavoriteStore } from "./favorite.store";
+import { computed, ref, toRefs } from "vue";
 import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
 import { loadCartItems } from "@/utils/storageUtils";
-import { useModal } from "@/composables/useModal";
+import { useCartModal } from "./utils/modal";
 
 export const useCartStore = defineStore("cart", () => {
   const LOCAL_STORAGE_KEY = "cart";
   // state
   const cart = ref<CartItem[]>([]);
-  const { isOpen, close, open } = useModal();
   const error = ref<string>("");
-
-  const favoritesStore = useFavoriteStore();
-
+  const cartModal = useCartModal();
   // actions
   // cart actions
   const addToCart = (product: Product) => {
@@ -35,19 +31,6 @@ export const useCartStore = defineStore("cart", () => {
       (p: CartItem) => p.product.id !== product.id
     );
     saveToLocalStorage(LOCAL_STORAGE_KEY, cart.value);
-  };
-
-  // modal actions
-  // Можно упростить через вспомогательный композабл позже
-  const openModal = () => {
-    if (cart.value.length > 0) {
-      favoritesStore.isModalOpen = false;
-      open();
-    }
-  };
-
-  const toggleCartModal = () => {
-    isOpen.value ? close() : openModal();
   };
 
   // count actions
@@ -88,13 +71,11 @@ export const useCartStore = defineStore("cart", () => {
   return {
     // state
     cart,
-    isModalOpen: isOpen,
+    ...toRefs(cartModal),
     // actions
     addToCart,
     removeFromCart,
-    openModal,
     closeModal: close,
-    toggleCartModal,
     incrementCount,
     decrementCount,
     // getters

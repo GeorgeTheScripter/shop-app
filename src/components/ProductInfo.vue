@@ -28,8 +28,8 @@
 
 <script setup lang="ts">
 import ProductSplide from "@/components/ProductSplide.vue";
-import { useCartStore } from "@/store/cart.store";
-import { useFavoriteStore } from "@/store/favorite.store";
+import { useCartStore } from "@/store/modules/cartModule";
+import { useFavoriteStore } from "@/store/modules/favoritesModule";
 import { Product } from "@/types";
 
 defineProps<{

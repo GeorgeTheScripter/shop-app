@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProductStore } from "@/store/products";
+import { useProductStore } from "@/store/modules/productsModule";
 import { computed } from "vue";
 
 defineOptions({
