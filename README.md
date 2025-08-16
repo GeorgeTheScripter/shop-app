@@ -1,5 +1,49 @@
-# Vue 3 + TypeScript + Vite
+# Интернет-магазин на Vue.js
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+![](https://img.shields.io/badge/TypeScript-5.x-blue)
+![](https://img.shields.io/badge/Pinia-2.x-yellow)
+![](https://img.shields.io/badge/Tailwind_CSS-3.x-38BDF8)
+![](https://img.shields.io/badge/Vue.js-3.x-brightgreen)
+
+
+
+Учебный проект интернет-магазина, созданный для практики современных фронтенд-технологий. Проект демонстрирует реализацию ключевых функций e-commerce приложения с использованием Vue 3 Composition API.
+
+## Особенности проекта
+
+🛒 Цикл покупок: Просмотр товаров, добавление в корзину
+
+🔍 Фильтрация и поиск: По категориям, цене и названию товара
+
+❤️ Система избранного: Сохранение товаров в личном кабинете
+
+📱 Адаптивный дизайн: Полная поддержка мобильных устройств
+
+## Установка и запуск
+
+
+```bash
+git clone https://github.com/GeorgeTheScripter/shop-app.git
+```
+```bash
+npm install
+```
+```bash
+npm run dev
+```
+
+## Цели проекта
+
+Этот проект был создан с образовательной целью для:
+
+- Практического освоения Vue 3 Composition API
+
+- Изучения TypeScript в реальном проекте
+
+- Опыта работы с Pinia для управления состоянием
+
+- Освоения современных подходов к стилизации с Tailwind CSS
+
+- Разработки полнофункционального SPA-приложения
+
