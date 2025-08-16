@@ -1,6 +1,6 @@
 <template>
   <button
-    class="bg-slate-200 text-slate-800 px-6 py-2 rounded-xl cursor-pointer hover:bg-slate-300 font-medium relative duration-300"
+    class="bg-slate-200 text-slate-800 px-6 max-[980px]:px-4 py-2 rounded-xl cursor-pointer hover:bg-slate-300 font-medium relative duration-300"
     :class="{ 'bg-slate-300': active }"
   >
     <slot></slot>

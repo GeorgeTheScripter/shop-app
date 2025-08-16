@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-2">
+  <div class="flex gap-2 flex-wrap justify-end">
     <Button
       v-for="category in producStore.categories"
       @click="producStore.setCategory(category)"

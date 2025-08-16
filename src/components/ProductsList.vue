@@ -6,7 +6,9 @@
       v-else-if="store.paginatedProducts.length > 0"
       class="flex flex-col gap-4"
     >
-      <div class="w-[1280px] m-auto grid grid-cols-4 gap-5">
+      <div
+        class="max-w-[1280px] w-full m-auto grid grid-cols-4 gap-5 max-[1198px]:grid-cols-3 max-[980px]:grid-cols-2 max-[980px]:gap-2"
+      >
         <ProductCard
           v-for="product in store.paginatedProducts"
           :product="product"

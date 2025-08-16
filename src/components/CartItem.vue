@@ -1,13 +1,15 @@
 <template>
   <div
-    class="p-2 rounded-xl flex justify-between w-lg items-center bg-white border-slate-600 border-2"
+    class="p-2 rounded-xl flex justify-between w-lg max-[767px]:w-full items-center bg-white border-slate-600 border-2"
   >
     <div class="flex gap-3 items-center">
       <div
         :style="`background-image: url('${cartItem.product.images[0]}')`"
         class="h-[40px] w-[40px] bg-center bg-contain bg-no-repeat"
       ></div>
-      <div class="max-w-[280px] flex-1 overflow-hidden">
+      <div
+        class="max-w-[280px] max-[767px]:max-w-[160px] flex-1 overflow-hidden"
+      >
         <p class="text-lg">{{ cartItem.product.price }}$</p>
         <p
           class="text-xl whitespace-nowrap text-ellipsis overflow-hidden truncate"

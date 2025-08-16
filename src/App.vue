@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <Header />
 
-    <router-view></router-view>
+    <router-view class="w-full"></router-view>
 
     <div class="mt-24">
       <Footer />

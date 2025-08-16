@@ -1,6 +1,6 @@
 <template>
   <header class="bg-slate-800 px-4 py-3 fixed w-full z-2">
-    <div class="w-[1280px] flex justify-between m-auto">
+    <div class="max-w-[1280px] w-full flex justify-between mx-auto">
       <div class="text-xl font-medium text-slate-300" @click="router.push('/')">
         Логотип
       </div>

@@ -1,5 +1,8 @@
 <template>
-  <div class="flex gap-2 justify-center" v-if="totalPages > 1">
+  <div
+    class="flex gap-2 justify-center max-[767px]:gap-1"
+    v-if="totalPages > 1"
+  >
     <Button
       v-for="page in totalPages"
       @click="productsStore.setPage(page)"

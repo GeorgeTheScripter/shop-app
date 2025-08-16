@@ -1,11 +1,11 @@
 <template>
-  <div class="mt-24">
-    <div class="w-[1280px] mx-auto flex flex-col gap-12" v-if="product">
+  <div class="mt-24 px-4">
+    <div class="max-w-[1280px] mx-auto flex flex-col gap-12" v-if="product">
       <Crumbs :rootName="'Главная'" :currentName="product.title" />
       <ProductInfo :product="product" />
     </div>
 
-    <div class="w-[1280px] mx-auto mt-24 mb-6">
+    <div class="max-w-[1280px] mx-auto mt-24 mb-6">
       <h3 class="text-4xl text-slate-600">Вам может понравиться</h3>
     </div>
     <ProductsList />
