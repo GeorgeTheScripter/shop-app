@@ -1,6 +1,7 @@
 <template>
   <button
     class="bg-slate-200 text-slate-800 px-6 py-2 rounded-xl cursor-pointer hover:bg-slate-300 font-medium relative duration-300"
+    :class="{ 'bg-slate-300': active }"
   >
     <slot></slot>
     <div
@@ -27,6 +28,7 @@ import { computed } from "vue";
 const props = defineProps<{
   isFavorite?: boolean;
   isCart?: boolean;
+  active?: boolean;
 }>();
 
 defineOptions({

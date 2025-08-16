@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-2 justify-center">
+  <div class="flex gap-2 justify-center" v-if="totalPages > 1">
     <Button
       v-for="page in totalPages"
       @click="productsStore.setPage(page)"
@@ -22,6 +22,8 @@ defineOptions({
 const productsStore = useProductStore();
 
 const totalPages = computed(() => {
-  return Math.ceil(productsStore.products.length / productsStore.itemsPerPage);
+  return Math.ceil(
+    productsStore.filteredProducts.length / productsStore.itemsPerPage
+  );
 });
 </script>
