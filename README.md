@@ -2,8 +2,8 @@
 
 
 ![](https://img.shields.io/badge/TypeScript-5.x-blue)
-![](https://img.shields.io/badge/Pinia-2.x-yellow)
-![](https://img.shields.io/badge/Tailwind_CSS-3.x-38BDF8)
+![](https://img.shields.io/badge/Pinia-3.x-yellow)
+![](https://img.shields.io/badge/Tailwind_CSS-4.x-38BDF8)
 ![](https://img.shields.io/badge/Vue.js-3.x-brightgreen)
 
 
