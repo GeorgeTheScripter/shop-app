@@ -13,6 +13,7 @@ export const useProductStore = defineStore("product", () => {
   const paginatedProducts = paginationModule.getPaginated(
     searchAndSortModule.getSearchedAndSortedProducts(
       categoriesModule.filteredProducts
+      // productsModule.products
     )
   );
 

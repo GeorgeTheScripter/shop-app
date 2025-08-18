@@ -1,46 +1,66 @@
 import { Product } from "@/types";
 import { computed, ref } from "vue";
 import { useProductStore } from "..";
+import { getCategories } from "./utils/getCategories";
 
 export const useCategorySort = () => {
   const productStore = useProductStore();
-  const selectedCategory = ref<string | null>(null);
+  const categories = getCategories();
+  const selectedCategories = ref<string[]>([]);
 
-  const categories = computed(() => {
-    if (!productStore.products) return [];
+  const toggleCategory = (category: string) => {
+    if (category === "all") {
+      selectedCategories.value = selectedCategories.value.includes("all")
+        ? []
+        : ["all"];
+      return;
+    }
 
-    const categorySet = new Set<string>();
+    if (selectedCategories.value.includes("all")) {
+      selectedCategories.value = [category];
+      return;
+    }
 
-    productStore.products.forEach((product: Product) => {
-      if (product.category.name) {
-        categorySet.add(product.category.name);
-      }
-    });
-
-    return Array.from(categorySet);
-  });
-
-  const filteredProducts = computed((): Product[] => {
-    if (!selectedCategory.value) return productStore.products;
-
-    return productStore.products.filter(
-      (product) => product.category.name === selectedCategory.value
-    );
-  });
-
-  const setCategory = (categoryName: string) => {
-    selectedCategory.value = categoryName;
+    const index = selectedCategories.value.indexOf(category);
+    if (index === -1) {
+      selectedCategories.value.push(category);
+    } else {
+      selectedCategories.value.splice(index, 1);
+    }
   };
 
-  const resetCategory = () => {
-    selectedCategory.value = null;
+  const filteredProducts = computed((): Product[] => {
+    if (!productStore.products) return [];
+
+    if (
+      selectedCategories.value.includes("all") ||
+      selectedCategories.value.length === 0
+    ) {
+      return productStore.products;
+    }
+
+    const productsMap = new Map<number, Product>();
+
+    selectedCategories.value.forEach((category: string) => {
+      productStore.products.forEach((product: Product) => {
+        if (product.category.name === category) {
+          productsMap.set(product.id, product);
+        }
+      });
+    });
+
+    return Array.from(productsMap.values());
+  });
+
+  const clearSelected = () => {
+    selectedCategories.value = [];
   };
 
   return {
-    selectedCategory,
     categories,
-    setCategory,
     filteredProducts,
-    resetCategory,
+    selectedCategories,
+    toggleCategory,
+    clearSelected,
   };
 };

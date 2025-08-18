@@ -2,11 +2,12 @@
   <div class="flex gap-2 flex-wrap justify-end">
     <Button
       v-for="category in producStore.categories"
-      @click="producStore.setCategory(category)"
-      :active="category === producStore.selectedCategory"
+      @click="producStore.toggleCategory(category)"
+      :active="producStore.selectedCategories.includes(category)"
       >{{ category }}</Button
     >
-    <Button @click="producStore.resetCategory">All</Button>
+
+    <Button @click="producStore.clearSelected()">All</Button>
   </div>
 </template>
 
