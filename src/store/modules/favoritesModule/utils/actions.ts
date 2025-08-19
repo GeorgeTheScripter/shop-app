@@ -4,7 +4,7 @@ import { saveToLocalStorage } from "@/utils/saveToLocalStorage";
 import { useProductStore } from "../../productsModule";
 
 export const useAddAndRemove = () => {
-  const favoritesLsKey = import.meta.env.VITE_LS_CART_KEY;
+  const favoritesLsKey = import.meta.env.VITE_LS_FAVORITES_KEY;
   const favoritesStore = useFavoriteStore();
   const productsStore = useProductStore();
 

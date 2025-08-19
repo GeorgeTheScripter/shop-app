@@ -17,10 +17,15 @@ export const usePagination = () => {
       paginate(sortedAndSearchedProducts, currentPage, itemsPerPage)
     );
 
+  const resetPage = () => {
+    currentPage.value = 1;
+  };
+
   return {
     currentPage,
     itemsPerPage,
     setPage,
     getPaginated,
+    resetPage,
   };
 };

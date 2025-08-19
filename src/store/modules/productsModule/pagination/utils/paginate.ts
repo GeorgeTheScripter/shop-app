@@ -6,8 +6,9 @@ export const paginate = (
   currentPage: Ref<number>,
   itemsPerPage: Ref<number>
 ): Product[] => {
-  const start = (currentPage.value - 1) * itemsPerPage.value;
-  const end = start + itemsPerPage.value;
+  const start: number = (currentPage.value - 1) * itemsPerPage.value;
+  // WTF??? Почему TS пропустил itemsPerPage.value если он приходит строкой. Узнать!
+  const end: number = start + Number(itemsPerPage.value);
 
   return products.value.slice(start, end);
 };

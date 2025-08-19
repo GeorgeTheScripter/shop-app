@@ -6,7 +6,7 @@ import { loadCartItems } from "@/utils/storageUtils";
 import { useCartModal } from "./utils/modal";
 
 export const useCartStore = defineStore("cart", () => {
-  const LOCAL_STORAGE_KEY = "cart";
+  const LOCAL_STORAGE_KEY = import.meta.env.VITE_LS_CART_KEY;
   // state
   const cart = ref<CartItem[]>([]);
   const error = ref<string>("");
@@ -55,8 +55,13 @@ export const useCartStore = defineStore("cart", () => {
     }, 0);
   });
 
+  cart.value.forEach((item) => {
+    console.log(item.quantity);
+  });
+
   const getTotalCount = computed((): number => {
     return cart.value.reduce((sum: number, el: CartItem) => {
+      console.log(el.quantity);
       return sum + el.quantity;
     }, 0);
   });

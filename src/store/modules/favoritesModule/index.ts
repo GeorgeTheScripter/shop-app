@@ -7,7 +7,7 @@ import { useFavoritesModal } from "./utils/modal";
 import { useAddAndRemove } from "./utils/actions";
 
 export const useFavoriteStore = defineStore("favorite", () => {
-  const LOCAL_STORAGE_KEY = "favorites";
+  const LOCAL_STORAGE_KEY = import.meta.env.VITE_LS_FAVORITES_KEY;
 
   // state
   const favorites = ref<Product[]>([]);

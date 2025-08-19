@@ -39,3 +39,8 @@ export interface Option {
   value: SortType;
   name: string;
 }
+
+export interface DisplayCount {
+  value: number;
+  name: string;
+}
