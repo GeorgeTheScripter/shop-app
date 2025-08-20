@@ -1,6 +1,5 @@
 <template>
   <input
-    type="text"
     :value="modelValue"
     @input="updateInput"
     class="bg-slate-200 w-fit p-2 outline-0 rounded-xl"
@@ -13,7 +12,7 @@ defineOptions({
 });
 
 defineProps<{
-  modelValue: string;
+  modelValue: string | number;
 }>();
 
 const emit = defineEmits<{

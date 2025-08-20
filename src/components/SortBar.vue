@@ -4,6 +4,8 @@
   >
     <Categories />
 
+    <Range />
+
     <div
       class="flex gap-2 max-[1198px]:order-first max-[380px]:flex-col max-[380px]:w-full"
     >

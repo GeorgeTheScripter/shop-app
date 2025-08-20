@@ -4,7 +4,7 @@ import { useSearchAndFilter } from "./searchAndFilter";
 import { useProducts } from "./products";
 import { useCategorySort } from "./categories";
 import { useDisplayedProducts } from "./displayedProducts";
-import { computed, watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 
 export const useProductStore = defineStore("product", () => {
   const productsModule = useProducts();
@@ -32,6 +32,10 @@ export const useProductStore = defineStore("product", () => {
       categoriesModule.filteredProducts.value.length /
         paginationModule.itemsPerPage.value
     );
+  });
+
+  onMounted(async () => {
+    await productsModule.getProducts();
   });
 
   return {

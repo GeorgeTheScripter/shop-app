@@ -28,7 +28,7 @@ import { useProductStore } from "@/store/modules/productsModule";
 
 const store = useProductStore();
 
-onMounted(async () => {
-  await store.getProducts();
-});
+// onMounted(async () => {
+//   await store.getProducts();
+// });
 </script>
