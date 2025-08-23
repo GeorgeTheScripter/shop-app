@@ -23,7 +23,7 @@ export enum SortType {
   DESCENDING = "desc",
 }
 
-export interface ApiClient {
+export interface ApiClientInterface {
   getProducts: () => Promise<Product[]>;
   getProductById: (id: number) => Promise<Product>;
   getProductByPage: (page: number, limit: number) => Promise<Product[]>;

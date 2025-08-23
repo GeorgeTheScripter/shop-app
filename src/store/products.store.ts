@@ -1,34 +1,47 @@
-import { fetchProducts } from "@/composables/fetchProducts";
+import { ProductService } from "@/services/product.service";
 import { Product } from "@/types";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useProductsStore = defineStore("products", () => {
+  // State
   const products = ref<Product[]>([]);
   const isLoading = ref<boolean>(false);
-  const error = ref<string>("");
+  const error = ref<string | null>(null);
   const isInitialized = ref<boolean>(false);
 
-  const getProducts = async () =>
-    await fetchProducts(isLoading, products, error);
+  // Actions
+  const loadProducts = async () => {
+    if (isLoading.value) return;
 
-  const getCurrentProduct = (id: number): Product | undefined => {
-    return products.value.find((product: Product) => product.id === id);
+    isLoading.value = true;
+    error.value = null;
+
+    try {
+      products.value = await ProductService.getProducts();
+      isInitialized.value = true;
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : "Неизвестная ошибка";
+      console.error("Ошибка при загрузке данных: ", err);
+    } finally {
+      isLoading.value = false;
+    }
   };
 
-  const initialize = () => {
+  const initialize = async () => {
     if (!isInitialized.value) {
-      getProducts();
+      await loadProducts();
     }
   };
 
   return {
+    // State
     products,
     isLoading,
     error,
 
-    getProducts,
-    getCurrentProduct,
+    // Actions
     initialize,
+    loadProducts,
   };
 });
