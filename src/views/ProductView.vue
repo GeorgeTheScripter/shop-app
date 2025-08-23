@@ -1,8 +1,14 @@
 <template>
   <div class="mt-24 px-4">
-    <div class="max-w-[1280px] mx-auto flex flex-col gap-12" v-if="product">
-      <Crumbs :rootName="'Главная'" :currentName="product.title" />
-      <ProductInfo :product="product" />
+    <div
+      class="max-w-[1280px] mx-auto flex flex-col gap-12"
+      v-if="productStore.currentProduct"
+    >
+      <Crumbs
+        :rootName="'Главная'"
+        :currentName="productStore.currentProduct.title"
+      />
+      <ProductInfo :product="productStore.currentProduct" />
     </div>
 
     <div class="max-w-[1280px] mx-auto mt-24 mb-6">
@@ -15,8 +21,8 @@
 <script setup lang="ts">
 import ProductsList from "@/components/ProductsList.vue";
 import ProductInfo from "@/components/ProductInfo.vue";
-import { computed } from "vue";
 import { useProductsStore } from "@/store/products.store";
+import { onMounted, onUnmounted, watchEffect } from "vue";
 
 const props = defineProps<{
   id: number;
@@ -24,5 +30,15 @@ const props = defineProps<{
 
 const productStore = useProductsStore();
 
-const product = computed(() => productStore.getCurrentProduct(props.id));
+onMounted(() => {
+  productStore.loadProduct(props.id);
+});
+
+onUnmounted(() => {
+  productStore.currentProduct = null;
+});
+
+watchEffect(() => {
+  productStore.loadProduct(props.id);
+});
 </script>

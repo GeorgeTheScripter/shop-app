@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCartStore } from "@/store/modules/cartModule";
+import { useCartStore } from "@/store/cart.store";
 import { CartItem } from "@/types";
 
 defineProps<{

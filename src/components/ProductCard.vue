@@ -29,16 +29,16 @@
         </div>
       </div>
 
-      <!-- <Button class="w-full" @click.stop="cartStore.addToCart(product)">
+      <Button class="w-full" @click.stop="cartStore.addToCart(product)">
         <span class="max-[767px]:hidden">Добавить в корзину</span>
         <span class="min-[768px]:hidden">Вкорзину</span>
-      </Button> -->
+      </Button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// import { useCartStore } from "@/store/modules/cartModule";
+import { useCartStore } from "@/store/cart.store";
 import { useFavoretesStore } from "@/store/favorites.store";
 import { Product } from "@/types";
 import { useRouter } from "vue-router";
@@ -48,16 +48,10 @@ const props = defineProps<{
 }>();
 
 const favoritesStore = useFavoretesStore();
-// const cartStore = useCartStore();
+const cartStore = useCartStore();
 const router = useRouter();
 
 const openProductPage = () => {
   router.push(`/product/${props.product.id}`);
 };
-
-// const isProductFavorite = computed(() =>
-//   favoritesStore.favorites.some(
-//     (favorite: Product) => favorite.id === props.product.id
-//   )
-// );
 </script>
