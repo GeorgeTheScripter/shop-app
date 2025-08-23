@@ -16,13 +16,13 @@
 import ProductsList from "@/components/ProductsList.vue";
 import ProductInfo from "@/components/ProductInfo.vue";
 import { computed } from "vue";
-import { useProductStore } from "@/store/modules/productsModule";
+import { useProductsStore } from "@/store/products.store";
 
 const props = defineProps<{
   id: number;
 }>();
 
-const productStore = useProductStore();
+const productStore = useProductsStore();
 
 const product = computed(() => productStore.getCurrentProduct(props.id));
 </script>

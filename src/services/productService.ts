@@ -1,16 +1,16 @@
 import { Product } from "@/types";
-import { apiClient } from "../api";
+import { apiClient } from "./apiClient";
 
 export const ProductService = {
   getAll: async (): Promise<Product[]> => {
-    return apiClient.getProducts();
+    return await apiClient.getProducts();
   },
 
   getCurrent: async (id: number): Promise<Product> => {
-    return apiClient.getProductById(id);
+    return await apiClient.getProductById(id);
   },
 
   getByPage: async (page: number, limit: number): Promise<Product[]> => {
-    return apiClient.getProductByPage(page, limit);
+    return await apiClient.getProductByPage(page, limit);
   },
 };

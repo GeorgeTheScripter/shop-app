@@ -1,7 +1,6 @@
 import { type Ref } from "vue";
-import { loadFromAPI } from "./loadFromApi";
-import { syncFavorite } from "./syncFavorite";
 import { Product } from "@/types";
+import { ProductService } from "@/services/productService";
 
 export const fetchProducts = async (
   isLoading: Ref<boolean>,
@@ -13,8 +12,7 @@ export const fetchProducts = async (
   isLoading.value = true;
 
   try {
-    await loadFromAPI(products, error);
-    syncFavorite(products);
+    products.value = await ProductService.getAll();
   } catch (err) {
     error.value = String(err);
   } finally {

@@ -1,7 +1,7 @@
 <template>
   <div
     class="fixed z-1 top-0 right-0 left-0 bottom-0 bg-black/20"
-    @click="favoriteStore.close"
+    @click="favoriteStore.closeModal"
   >
     <div
       @click.stop
@@ -9,7 +9,7 @@
     >
       <div class="w-full flex justify-between items-center text-3xl">
         <p>Избранное: {{ favoriteStore.favorites.length }}</p>
-        <button @click="favoriteStore.close" class="cursor-pointer">
+        <button @click="favoriteStore.closeModal" class="cursor-pointer">
           &times;
         </button>
       </div>
@@ -26,8 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import { useFavoriteStore } from "@/store/modules/favoritesModule";
 import FavoriteItem from "./FavoriteItem.vue";
+import { useFavoretesStore } from "@/store/favorites.store";
 
-const favoriteStore = useFavoriteStore();
+const favoriteStore = useFavoretesStore();
 </script>

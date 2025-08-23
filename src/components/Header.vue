@@ -9,19 +9,17 @@
         <Button @click="favoriteStore.toggleModal" :isFavorite="true"
           >Избранное</Button
         >
-        <Button @click="cartStore.toggleModal" :isCart="true">Корзина</Button>
+        <!-- <Button @click="cartStore.toggleModal" :isCart="true">Корзина</Button> -->
       </div>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-import { useCartStore } from "@/store/modules/cartModule";
-import { useFavoriteStore } from "@/store/modules/favoritesModule";
+import { useFavoretesStore } from "@/store/favorites.store";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const favoriteStore = useFavoriteStore();
-const cartStore = useCartStore();
+const favoriteStore = useFavoretesStore();
 </script>
