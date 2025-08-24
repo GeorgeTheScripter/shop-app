@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProductStore } from "@/store/modules/productsModule";
+// import { useProductStore } from "@/store/modules/productsModule";
 import { Product } from "@/types";
 import { ref, watch } from "vue";
 
@@ -30,22 +30,22 @@ defineOptions({
   name: "Range",
 });
 
-const store = useProductStore();
+// const store = useProductStore();
 
 const maxPrice = ref<number | null>(null);
 const minPrice = ref<number | null>(null);
 
-watch(
-  () => store.filteredProducts,
-  (newProducts) => {
-    const allPrices: number[] = [];
+// watch(
+//   () => store.filteredProducts,
+//   (newProducts) => {
+//     const allPrices: number[] = [];
 
-    newProducts.forEach((product: Product) => {
-      allPrices.push(product.price);
-    });
+//     newProducts.forEach((product: Product) => {
+//       allPrices.push(product.price);
+//     });
 
-    minPrice.value = Math.min(...allPrices);
-    maxPrice.value = Math.max(...allPrices);
-  }
-);
+//     minPrice.value = Math.min(...allPrices);
+//     maxPrice.value = Math.max(...allPrices);
+//   }
+// );
 </script>

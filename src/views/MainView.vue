@@ -6,9 +6,9 @@
       </div>
 
       <div class="flex flex-col gap-4">
-        <SortBar />
+        <!-- <SortBar /> -->
         <ProductsList />
-        <Pagination />
+        <!-- <Pagination /> -->
       </div>
     </div>
   </div>
@@ -16,5 +16,5 @@
 
 <script setup lang="ts">
 import ProductsList from "@/components/ProductsList.vue";
-import SortBar from "@/components/SortBar.vue";
+// import SortBar from "@/components/SortBar.vue";
 </script>

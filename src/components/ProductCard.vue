@@ -1,7 +1,7 @@
 <template>
   <div
     class="w-full h-full rounded-2xl overflow-hidden cursor-pointer relative border-slate-600 border-2 flex flex-col"
-    @click="openProductPage(product.id)"
+    @click="openProductPage"
   >
     <div
       :style="`background-image: url('${product.images[0]}')`"
@@ -10,7 +10,7 @@
 
     <Like
       class="absolute top-2 right-2"
-      :isFavorite="product.isFavorite"
+      :isFavorite="favoritesStore.isProductFavorite(product)"
       @click.stop="favoritesStore.toggleFavorite(product)"
     />
 
@@ -38,20 +38,20 @@
 </template>
 
 <script setup lang="ts">
-import { useCartStore } from "@/store/modules/cartModule";
-import { useFavoriteStore } from "@/store/modules/favoritesModule";
+import { useCartStore } from "@/store/cart.store";
+import { useFavoretesStore } from "@/store/favorites.store";
 import { Product } from "@/types";
 import { useRouter } from "vue-router";
 
-defineProps<{
+const props = defineProps<{
   product: Product;
 }>();
 
-const favoritesStore = useFavoriteStore();
+const favoritesStore = useFavoretesStore();
 const cartStore = useCartStore();
 const router = useRouter();
 
-const openProductPage = (id: number) => {
-  router.push(`/product/${id}`);
+const openProductPage = () => {
+  router.push(`/product/${props.product.id}`);
 };
 </script>

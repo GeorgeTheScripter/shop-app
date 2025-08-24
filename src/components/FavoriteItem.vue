@@ -19,17 +19,17 @@
       </div>
     </div>
 
-    <Button @click="favoriteStore.removeFromFavorite(favorite)">Delete</Button>
+    <Button @click="favoriteStore.removeFromFavorite(favorite)">Удалить</Button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useFavoriteStore } from "@/store/modules/favoritesModule";
+import { useFavoretesStore } from "@/store/favorites.store";
 import { Product } from "@/types";
 
 defineProps<{
   favorite: Product;
 }>();
 
-const favoriteStore = useFavoriteStore();
+const favoriteStore = useFavoretesStore();
 </script>
