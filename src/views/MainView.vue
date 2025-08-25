@@ -8,7 +8,7 @@
       <div class="flex flex-col gap-4">
         <!-- <SortBar /> -->
         <ProductsList />
-        <!-- <Pagination /> -->
+        <Pagination />
       </div>
     </div>
   </div>

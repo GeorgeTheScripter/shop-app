@@ -27,7 +27,7 @@
       </div>
 
       <Button @click="cartStore.removeFromCart(cartItem.product)"
-        >Delete</Button
+        >Удалить</Button
       >
     </div>
   </div>

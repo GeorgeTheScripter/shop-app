@@ -1,21 +1,25 @@
 <template>
-  <!-- <div
+  <div
     class="flex gap-2 justify-center max-[767px]:gap-1"
-    v-if="productsStore.totalPages > 1"
+    v-if="productStore.totalPages > 1"
   >
     <Button
-      v-for="page in productsStore.totalPages"
-      @click="productsStore.setPage(page)"
+      v-for="page in productStore.totalPages"
+      @click="productStore.setPage(page)"
       :class="{
-        'bg-slate-300': page === productsStore.currentPage,
+        'bg-slate-300': page === productStore.currentPage,
       }"
       >{{ page }}</Button
     >
-  </div> -->
+  </div>
 </template>
 
 <script setup lang="ts">
+import { useProductsStore } from "@/store/products.store";
+
 defineOptions({
   name: "Pagination",
 });
+
+const productStore = useProductsStore();
 </script>
