@@ -15,14 +15,14 @@
       v-if="isCountCartVisible"
       class="absolute -top-2 -right-2 flex items-center justify-center rounded-4xl w-[24px] h-[24px] bg-red-500 text-white"
     >
-      {{ cartStore.getTotalCount }}
+      {{ cartStore.totalCount }}
     </div>
   </button>
 </template>
 
 <script setup lang="ts">
-import { useCartStore } from "@/store/modules/cartModule";
-import { useFavoriteStore } from "@/store/modules/favoritesModule";
+import { useCartStore } from "@/store/cart.store";
+import { useFavoretesStore } from "@/store/favorites.store";
 import { computed } from "vue";
 
 const props = defineProps<{
@@ -35,7 +35,7 @@ defineOptions({
   name: "Button",
 });
 
-const favoriteStore = useFavoriteStore();
+const favoriteStore = useFavoretesStore();
 const cartStore = useCartStore();
 
 const isCountFavoriteVisible = computed(

@@ -19,7 +19,7 @@
       <div class="flex gap-2">
         <Like
           class="cursor-pointer"
-          :isFavorite="product.isFavorite || false"
+          :isFavorite="favoritesStore.isProductFavorite(product)"
           @click="favoritesStore.toggleFavorite(product)"
         />
         <Button class="max-[767px]:w-full" @click="cartStore.addToCart(product)"
@@ -32,8 +32,10 @@
 
 <script setup lang="ts">
 import ProductSplide from "@/components/ProductSplide.vue";
-import { useCartStore } from "@/store/modules/cartModule";
-import { useFavoriteStore } from "@/store/modules/favoritesModule";
+import { useCartStore } from "@/store/cart.store";
+import { useFavoretesStore } from "@/store/favorites.store";
+// import { useCartStore } from "@/store/modules/cartModule";
+
 import { Product } from "@/types";
 
 defineProps<{
@@ -41,5 +43,5 @@ defineProps<{
 }>();
 
 const cartStore = useCartStore();
-const favoritesStore = useFavoriteStore();
+const favoritesStore = useFavoretesStore();
 </script>
