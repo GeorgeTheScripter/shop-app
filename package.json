@@ -12,11 +12,13 @@
     "@splidejs/vue-splide": "^0.6.12",
     "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.11.0",
+    "lodash": "^4.17.21",
     "pinia": "^3.0.3",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.20",
     "@types/node": "^24.1.0",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/tsconfig": "^0.7.0",

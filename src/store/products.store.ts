@@ -2,10 +2,13 @@ import { ProductService } from "@/services/product.service";
 import { Product } from "@/types";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { FiltersState, useFilterStore } from "./filters.store";
 
 export const useProductsStore = defineStore("products", () => {
+  const filterStore = useFilterStore();
   // State
   const products = ref<Product[]>([]);
+  const displayedProducts = ref<Product[]>([]);
   const currentProduct = ref<Product | null>(null);
   const isLoading = ref<boolean>(false);
   const error = ref<string | null>(null);
@@ -63,15 +66,35 @@ export const useProductsStore = defineStore("products", () => {
   };
 
   // Getters
+  const filteredProducts = computed(() => {
+    if (!products.value.length) return [];
+
+    let filtered: Product[] = [...products.value];
+    const filters: FiltersState = filterStore.state;
+
+    // Поиск
+    if (filters.searchQuery) {
+      const query = filters.searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(
+        (product: Product) =>
+          product.title.toLowerCase().includes(query) ||
+          product.description.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered;
+  });
+
   const totalPages = computed(() => {
-    return Math.ceil(products.value.length / itemsPerPage.value);
+    return Math.ceil(filteredProducts.value.length / itemsPerPage.value);
   });
 
   const paginatedProducts = computed(() => {
     const start: number = (currentPage.value - 1) * itemsPerPage.value;
     const end: number = start + itemsPerPage.value;
-
-    return products.value.slice(start, end);
+    return filteredProducts.value.length > 0
+      ? filteredProducts.value.slice(start, end)
+      : products.value.slice(start, end);
   });
 
   return {
@@ -82,6 +105,7 @@ export const useProductsStore = defineStore("products", () => {
     error,
     currentPage,
     itemsPerPage,
+    displayedProducts,
 
     // Actions
     initialize,
@@ -93,5 +117,6 @@ export const useProductsStore = defineStore("products", () => {
     // Getters
     totalPages,
     paginatedProducts,
+    filteredProducts,
   };
 });

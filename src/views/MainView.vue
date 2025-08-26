@@ -5,10 +5,13 @@
         <h3 class="text-4xl text-slate-600">Популярное</h3>
       </div>
 
-      <div class="flex flex-col gap-4">
+      <div class="flex gap-4">
         <!-- <SortBar /> -->
-        <ProductsList />
-        <Pagination />
+        <Filters />
+        <div class="flex flex-col gap-4">
+          <ProductsList />
+          <Pagination />
+        </div>
       </div>
     </div>
   </div>
@@ -16,5 +19,6 @@
 
 <script setup lang="ts">
 import ProductsList from "@/components/ProductsList.vue";
+import Filters from "@/components/Filters.vue";
 // import SortBar from "@/components/SortBar.vue";
 </script>
