@@ -15,14 +15,15 @@
       <h4 class="">Категории:</h4>
 
       <div class="flex flex-col gap-0">
-        <div class="flex gap-2">
-          <input type="checkbox" id="cat_1" />
-          <label for="cat_1">Обувь</label>
-        </div>
-
-        <div class="flex gap-2">
-          <input type="checkbox" id="cat_2" />
-          <label for="cat_2">Аксессуары</label>
+        <div class="flex gap-2" v-for="category in categories" :key="category">
+          <input
+            type="checkbox"
+            :id="category"
+            :value="category"
+            :checked="localState.category.includes(category)"
+            @change="handleChange(category, $event)"
+          />
+          <label :for="category">{{ category }}</label>
         </div>
       </div>
     </div>
@@ -65,34 +66,53 @@
 
 <script setup lang="ts">
 import { FiltersState, useFilterStore } from "@/store/filters.store";
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import { debounce } from "lodash";
+import { useProductsStore } from "@/store/products.store";
 
 const filterStore = useFilterStore();
+const productStore = useProductsStore();
 
-const localFilters = reactive({ ...filterStore.state });
+const categories = computed(() => productStore.categories);
 
 const localState = reactive<FiltersState>({
-  category: "",
+  category: [] as string[],
   priceRange: { min: null, max: null },
   searchQuery: "",
   sortOrder: "asc",
 });
 
+Object.assign(localState, filterStore.state);
+
 const handleSearch = debounce(() => {
-  filterStore.updateFilters({ searchQuery: localFilters.searchQuery });
+  filterStore.updateFilters({ searchQuery: localState.searchQuery });
 }, 500);
 
 const applyFilters = () => {
-  localFilters.searchQuery = localState.searchQuery;
-  localFilters.priceRange.min = localState.priceRange.min;
-  localFilters.priceRange.max = localState.priceRange.max;
-  filterStore.updateFilters(localFilters);
+  filterStore.updateFilters({ ...localState });
 };
 
 const handleReset = () => {
   filterStore.resetFilters();
   localState.searchQuery = "";
-  Object.assign(localFilters, filterStore.state);
+  localState.priceRange = { min: null, max: null };
+  localState.category = [];
+  localState.sortOrder = "asc";
+};
+
+const handleChange = (category: string, event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (!target) return;
+
+  if (target.checked) {
+    if (!localState.category.includes(category)) {
+      localState.category.push(category);
+    }
+  } else {
+    const index = localState.category.indexOf(category);
+    if (index > -1) {
+      localState.category.splice(index, 1);
+    }
+  }
 };
 </script>

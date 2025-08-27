@@ -7,7 +7,7 @@ interface PriceRange {
 }
 export interface FiltersState {
   searchQuery: string;
-  category: string | null;
+  category: string[];
   priceRange: PriceRange;
   sortOrder: "asc" | "desc";
 }
@@ -17,7 +17,7 @@ export const useFilterStore = defineStore("filter", () => {
   const state: FiltersState = reactive<FiltersState>({
     searchQuery: "",
     priceRange: { min: null, max: null },
-    category: null,
+    category: [],
     sortOrder: "asc",
   });
 

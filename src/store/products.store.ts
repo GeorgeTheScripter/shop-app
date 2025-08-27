@@ -3,6 +3,7 @@ import { Product } from "@/types";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { FiltersState, useFilterStore } from "./filters.store";
+import { getCategories } from "@/utils/getCategories";
 
 export const useProductsStore = defineStore("products", () => {
   const filterStore = useFilterStore();
@@ -10,6 +11,7 @@ export const useProductsStore = defineStore("products", () => {
   const products = ref<Product[]>([]);
   const displayedProducts = ref<Product[]>([]);
   const currentProduct = ref<Product | null>(null);
+  const categories = ref<string[]>([]);
   const isLoading = ref<boolean>(false);
   const error = ref<string | null>(null);
   const isInitialized = ref<boolean>(false);
@@ -27,6 +29,7 @@ export const useProductsStore = defineStore("products", () => {
 
     try {
       products.value = await ProductService.getProducts();
+      categories.value = getCategories(products.value);
       isInitialized.value = true;
       currentPage.value = 1;
     } catch (err) {
@@ -94,6 +97,12 @@ export const useProductsStore = defineStore("products", () => {
       }
     }
 
+    if (filters.category.length > 0) {
+      filtered = filtered.filter((product: Product) =>
+        filters.category.includes(product.category.name)
+      );
+    }
+
     return filtered;
   });
 
@@ -118,6 +127,7 @@ export const useProductsStore = defineStore("products", () => {
     currentPage,
     itemsPerPage,
     displayedProducts,
+    categories,
 
     // Actions
     initialize,
