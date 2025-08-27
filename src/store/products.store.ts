@@ -72,7 +72,7 @@ export const useProductsStore = defineStore("products", () => {
     let filtered: Product[] = [...products.value];
     const filters: FiltersState = filterStore.state;
 
-    // Поиск
+    // Search
     if (filters.searchQuery) {
       const query = filters.searchQuery.toLowerCase().trim();
       filtered = filtered.filter(
@@ -80,6 +80,18 @@ export const useProductsStore = defineStore("products", () => {
           product.title.toLowerCase().includes(query) ||
           product.description.toLowerCase().includes(query)
       );
+    }
+
+    // Range
+    if (filters.priceRange.min !== null && filters.priceRange.max !== null) {
+      const min: number = filters.priceRange.min;
+      const max: number = filters.priceRange.max;
+
+      if (min !== null && max !== null && min < max) {
+        filtered = filtered.filter(
+          (product: Product) => product.price > min && product.price < max
+        );
+      }
     }
 
     return filtered;
