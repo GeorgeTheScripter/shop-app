@@ -12,7 +12,7 @@ defineOptions({
 });
 
 defineProps<{
-  modelValue: string | number;
+  modelValue: string | number | null;
 }>();
 
 const emit = defineEmits<{

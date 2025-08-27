@@ -7,7 +7,6 @@
         class="w-full"
         placeholder="Найти"
         v-model="localState.searchQuery"
-        @input="handleSearch"
       />
     </div>
 
@@ -67,7 +66,6 @@
 <script setup lang="ts">
 import { FiltersState, useFilterStore } from "@/store/filters.store";
 import { computed, reactive } from "vue";
-import { debounce } from "lodash";
 import { useProductsStore } from "@/store/products.store";
 
 const filterStore = useFilterStore();
@@ -76,28 +74,30 @@ const productStore = useProductsStore();
 const categories = computed(() => productStore.categories);
 
 const localState = reactive<FiltersState>({
-  category: [] as string[],
-  priceRange: { min: null, max: null },
-  searchQuery: "",
-  sortOrder: "asc",
+  category: [...filterStore.state.category],
+  priceRange: { ...filterStore.state.priceRange },
+  searchQuery: filterStore.state.searchQuery,
+  sortOrder: filterStore.state.sortOrder,
 });
 
-Object.assign(localState, filterStore.state);
-
-const handleSearch = debounce(() => {
-  filterStore.updateFilters({ searchQuery: localState.searchQuery });
-}, 500);
-
 const applyFilters = () => {
-  filterStore.updateFilters({ ...localState });
+  const filtersToApply = {
+    category: [...localState.category],
+    priceRange: { ...localState.priceRange },
+    searchQuery: localState.searchQuery,
+    sortOrder: localState.sortOrder,
+  };
+
+  filterStore.updateFilters(filtersToApply);
 };
 
 const handleReset = () => {
-  filterStore.resetFilters();
-  localState.searchQuery = "";
-  localState.priceRange = { min: null, max: null };
   localState.category = [];
+  localState.priceRange = { min: null, max: null };
+  localState.searchQuery = "";
   localState.sortOrder = "asc";
+
+  filterStore.resetFilters();
 };
 
 const handleChange = (category: string, event: Event) => {

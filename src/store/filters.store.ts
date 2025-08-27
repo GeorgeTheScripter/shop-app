@@ -33,7 +33,7 @@ export const useFilterStore = defineStore("filter", () => {
 
   const resetFilters = () => {
     state.searchQuery = "";
-    state.category = null;
+    state.category = [];
     state.priceRange = { min: null, max: null };
     state.sortOrder = "asc";
   };
