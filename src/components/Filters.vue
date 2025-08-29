@@ -11,23 +11,6 @@
     </div>
 
     <div>
-      <h4 class="">Категории:</h4>
-
-      <div class="flex flex-col gap-0">
-        <div class="flex gap-2" v-for="category in categories" :key="category">
-          <input
-            type="checkbox"
-            :id="category"
-            :value="category"
-            :checked="localState.category.includes(category)"
-            @change="handleChange(category, $event)"
-          />
-          <label :for="category">{{ category }}</label>
-        </div>
-      </div>
-    </div>
-
-    <div>
       <h4 class="">Цена:</h4>
 
       <div class="flex gap-2">
@@ -46,14 +29,21 @@
       </div>
     </div>
 
-    <div class="flex gap-2">
-      <h4 class="">Выводить по:</h4>
+    <div>
+      <h4 class="">Категории:</h4>
 
-      <select>
-        <option value="8">8</option>
-        <option value="8">16</option>
-        <option value="8">32</option>
-      </select>
+      <div class="flex flex-col gap-0">
+        <div class="flex gap-2" v-for="category in categories" :key="category">
+          <input
+            type="checkbox"
+            :id="category"
+            :value="category"
+            :checked="localState.category.includes(category)"
+            @change="handleChange(category, $event)"
+          />
+          <label :for="category">{{ category }}</label>
+        </div>
+      </div>
     </div>
 
     <div class="w-full flex flex-col items-center gap-2">

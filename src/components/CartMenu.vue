@@ -25,10 +25,10 @@
       <div class="w-full flex flex-col gap-4">
         <div class="text-xl flex justify-between">
           <p>Итого:</p>
-          <p>{{ cartStore.totalPrice.toFixed(2) }}$</p>
+          <p>{{ cartStore.totalPrice }}$</p>
         </div>
 
-        <Button class="w-full">Оформить</Button>
+        <Button class="w-full" @click="openCartPage">Оформить</Button>
       </div>
     </div>
   </div>
@@ -37,6 +37,14 @@
 <script setup lang="ts">
 import { useCartStore } from "@/store/cart.store";
 import CartItem from "./CartItem.vue";
+import { useRouter } from "vue-router";
 
 const cartStore = useCartStore();
+
+const router = useRouter();
+
+const openCartPage = () => {
+  router.push("/cart");
+  cartStore.closeModal();
+};
 </script>

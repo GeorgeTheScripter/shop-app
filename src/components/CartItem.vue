@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-2 rounded-xl flex justify-between w-lg max-[767px]:w-full items-center bg-white border-slate-600 border-2"
+    class="p-2 rounded-xl flex justify-between w-full max-[767px]:w-full items-center bg-white border-slate-600 border-2"
   >
     <div class="flex gap-3 items-center">
       <div
